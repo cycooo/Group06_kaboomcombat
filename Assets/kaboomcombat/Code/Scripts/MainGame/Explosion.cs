@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+// Explosion class
+// =====================================================================================================================
+
+
 using UnityEngine;
+
 
 namespace kaboomcombat
 {
@@ -8,6 +11,7 @@ namespace kaboomcombat
 {
     void Start()
     {
+        // Remove the explosion after one second
         Invoke("Kill", 1f);
     }
 

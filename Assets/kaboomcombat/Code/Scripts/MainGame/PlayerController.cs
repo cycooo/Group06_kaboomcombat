@@ -1,7 +1,12 @@
+// PlayerController class
+// =====================================================================================================================
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 namespace kaboomcombat
 {
@@ -80,7 +85,8 @@ namespace kaboomcombat
                 bool pathBlockedX = Physics.Raycast(transform.position, new Vector3(Mathf.RoundToInt(inputDirection.x), 0f, 0f), 1f, collisionMask);
                 bool pathBlockedY = Physics.Raycast(transform.position, new Vector3(0f, 0f, Mathf.RoundToInt(inputDirection.y)), 1f, collisionMask);
 
-
+                // Make the player face the direction they are trying to move in
+                // TODO: Make this less bad
                 if(inputDirection.x >= movementDeadzone)
                 {
                     transform.rotation = Quaternion.Euler(0f, -90f, 0f);
@@ -144,9 +150,10 @@ namespace kaboomcombat
             isMoving = false;
         }
 
-
+        // Function is called by the Input Event "PlaceBomb"
         private void PlaceBomb(InputAction.CallbackContext obj)
         {
+            // Only place a bomb if a bomb is not already at the player's position
             if(LevelManager.SearchLevelTile(transform.position) == null)
             {
                 LevelManager.SpawnObject(objectList[2], transform.position);

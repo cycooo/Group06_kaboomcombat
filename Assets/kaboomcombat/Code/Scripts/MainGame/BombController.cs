@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+// BombController class
+// =====================================================================================================================
+
+
 using UnityEngine;
+
 
 namespace kaboomcombat
 {
@@ -11,6 +14,7 @@ namespace kaboomcombat
         public float bombTimer = 3f;
         public bool autoStart = true;
 
+        // References
         public GameObject explosionPrefab;
         public GameObject explosionEndPrefab;
 
@@ -32,6 +36,8 @@ namespace kaboomcombat
 
 
         // Ensure that the bomb is removed from the level matrix if it is destroyed by means other than the LevelManager function
+        // TODO: Make this less bad; when destroyed correctly, bombs call the destroy function twice, just to make sure they are,
+        // in fact, being destroyed properly
         private void OnDestroy()
         {
             LevelManager.DestroyObject(gameObject);
@@ -54,19 +60,24 @@ namespace kaboomcombat
             RaycastHit hitDown;
 
 
-            // Cast rays to see if the bomb hits an obstacle
-            // If yes, then only instantiate explosion objects until we hit the object
-            // If no, instantiate all explosion objects according to bombPower
-            //
-            // The formula for instantiating the explosion objects is as follows:
-            // Start from the bomb x/z position, then subtract/add 1 to it to remove the explosion on top of the bomb,
-            // otherwise it would be duplicated by each direction.
-            // Iterate until we reach the collision's x/z position;
-            // If the collision object is destructible, we also place an explosion on top of it, to destroy it.
-            // Otherwise, stop before placing an explosion on top of the object, as it cannot be destroyed.
-            // 
-            // All positional coordinates are Floored, so as to obtain clean coordinates that match the ones in the levelArray matrix.
-            // This is so we can easily keep track of what square is occupied and by what etc.
+            /*
+            * Cast rays to see if the bomb hits an obstacle
+            * If yes, then only instantiate explosion objects until we hit the object
+            * If no, instantiate all explosion objects according to bombPower
+            *
+            * The formula for instantiating the explosion objects is as follows:
+            * Start from the bomb x/z position, then subtract/add 1 to it to remove the explosion on top of the bomb,
+            * otherwise it would be duplicated by each direction.
+            * Iterate until we reach the collision's x/z position;
+            * If the collision object is destructible, we also place an explosion on top of it, to destroy it.
+            * Otherwise, stop before placing an explosion on top of the object, as it cannot be destroyed.
+            * 
+            * Also, if we are on the last iteration of the for loop, place a different explosion object to add variety.
+            * 
+            * All positional coordinates are converted to MatrixPositions beforehand, so as to obtain clean coordinates
+            * that match the ones in the levelArray matrix.
+            * This is so we can easily keep track of what square is occupied and by what etc.
+            */
 
 
             // Convert the bomb's float position to matrix position
@@ -368,6 +379,7 @@ namespace kaboomcombat
                 }
             }
 
+            // Destroy the bomb object after we're done
             LevelManager.Destroy(gameObject);
         }
     }

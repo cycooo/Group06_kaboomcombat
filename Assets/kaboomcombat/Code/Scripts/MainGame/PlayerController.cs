@@ -83,19 +83,19 @@ namespace kaboomcombat
 
                 if(inputDirection.x >= movementDeadzone)
                 {
-                    transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                    transform.rotation = Quaternion.Euler(0f, -90f, 0f);
                 }
                 else if(inputDirection.x <= -movementDeadzone)
                 {
-                    transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+                    transform.rotation = Quaternion.Euler(0f, 90f, 0f);
                 }
                 else if(inputDirection.y >= movementDeadzone)
                 {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 }
                 else if(inputDirection.y <= -movementDeadzone)
                 {
-                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 }
 
 

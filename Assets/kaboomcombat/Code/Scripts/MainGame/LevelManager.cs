@@ -9,7 +9,7 @@ namespace kaboomcombat
         private int levelWidth = 13;
         private int levelHeight = 11;
 
-        private int randomness = 0;
+        private int randomness = 7;
 
         // References
         private SessionManager sessionManager;
@@ -26,6 +26,7 @@ namespace kaboomcombat
 
             GenerateLevel(); 
         }
+
 
         // Helper function that converts world coordinates to levelMatrix coordinates.
         public static Vector3 WorldToMatrixPosition(Vector3 source)
@@ -96,7 +97,7 @@ namespace kaboomcombat
 
         }
 
-
+        
         private void GenerateLevel()
         {
             levelMatrix = new GameObject[levelWidth, levelHeight];

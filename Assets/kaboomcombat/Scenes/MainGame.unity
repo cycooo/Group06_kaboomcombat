@@ -3964,6 +3964,7 @@ MonoBehaviour:
   objectList:
   - {fileID: 4453187591469389809, guid: 2a5c87d7c694e50488cb117c6d319390, type: 3}
   - {fileID: 1536540077909128048, guid: 633a94eddfe1ce64c813c1983bedca7a, type: 3}
+  - {fileID: 8963420478125875996, guid: 577b2bbf123601342b99b8e0651c4ea6, type: 3}
 --- !u!1 &1502622741
 GameObject:
   m_ObjectHideFlags: 0

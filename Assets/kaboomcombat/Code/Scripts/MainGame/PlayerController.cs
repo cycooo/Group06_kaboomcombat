@@ -147,7 +147,10 @@ namespace kaboomcombat
 
         private void PlaceBomb(InputAction.CallbackContext obj)
         {
-            // TODO: Spawn Bomb object
+            if(LevelManager.SearchLevelTile(transform.position) == null)
+            {
+                LevelManager.SpawnObject(objectList[2], transform.position);
+            }
         }
     }
 }

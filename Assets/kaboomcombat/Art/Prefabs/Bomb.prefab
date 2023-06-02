@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8963420478125875995}
   m_Layer: 6
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de193619297bad4d969a089e9ba3f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bombPower: 2
+  bombTimer: 3
+  autoStart: 1
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 64
+  explosionPrefab: {fileID: 7331766513067621587, guid: c2b7dd6fc0acffc43b1253af2588872e, type: 3}
+  explosionEndPrefab: {fileID: 279785429753965559, guid: 6f8d5b21c25fa1942a75810d40e5867b, type: 3}
 --- !u!65 &8963420478125875995
 BoxCollider:
   m_ObjectHideFlags: 0

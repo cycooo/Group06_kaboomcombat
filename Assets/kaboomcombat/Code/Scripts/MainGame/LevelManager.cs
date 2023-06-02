@@ -1,15 +1,19 @@
-using System.Collections;
+// LevelManager class
+// =====================================================================================================================
+
+
 using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace kaboomcombat
 {
     public class LevelManager : MonoBehaviour
     {
+        // Level variables
         private int levelWidth = 13;
         private int levelHeight = 11;
-
-        private int randomness = 0;
+        private int randomness = 7;
 
         // References
         private SessionManager sessionManager;
@@ -21,11 +25,14 @@ namespace kaboomcombat
 
         void Start()
         {
+            // Get references to SessionManager and objectList
             sessionManager = GetComponent<SessionManager>();
             objectList = sessionManager.objectList;
 
+            // Run the function that generates the level
             GenerateLevel(); 
         }
+
 
         // Helper function that converts world coordinates to levelMatrix coordinates.
         public static Vector3 WorldToMatrixPosition(Vector3 source)
@@ -96,28 +103,36 @@ namespace kaboomcombat
 
         }
 
-
+        // Function that generates a random level layout, then calls buildLevel()
         private void GenerateLevel()
         {
             levelMatrix = new GameObject[levelWidth, levelHeight];
 
+            // For loop to build the level matrix
+            // Start with the vertical axis, as such i and j are reversed
             for(int i = 0; i < levelHeight; i++)
             {
                 for(int j = 0; j < levelWidth; j++)
                 {
+                    // Assign a new random seed
                     int randomSeed = Random.Range(0, 10);
 
+                    // Place stone blocks every other block, else place brick blocks randomly
                     if(i % 2 != 0  &&  j % 2 != 0)
                     {
+                        // Place object with index 0 (Stone Block)
                         levelMatrix[j, i] = objectList[0];                        
                     }
                     else if(randomSeed < randomness)
                     {
+                        // Place object with index 1 (Brick Block)
                         levelMatrix[j, i] = objectList[1];
                     }
                 }
             }
 
+            // Remove corners
+            // There has to be a better way to do this, but I'm too lazy to find it
             levelMatrix[0,0] = null;
             levelMatrix[1,0] = null;
             levelMatrix[0,1] = null;
@@ -131,11 +146,14 @@ namespace kaboomcombat
             levelMatrix[levelWidth-2,levelHeight-1] = null;
             levelMatrix[levelWidth-1,levelHeight-2] = null;
 
+            // Call a function which will actually spawn the objects according to the matrix we just built
             BuildLevel();
         }
 
+        // Function that places gameObjects according to the levelMatrix
         private void BuildLevel()
         {
+            // Once again, i and j are reversed because we traverse the matrix rows first
             for(int i = 0; i < levelHeight; i++)
             {
                 for(int j = 0; j < levelWidth; j++)

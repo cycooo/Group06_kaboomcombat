@@ -1,6 +1,10 @@
-using System.Collections;
+// SessionManager class
+// =====================================================================================================================
+
+
 using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace kaboomcombat
 {
@@ -11,6 +15,7 @@ namespace kaboomcombat
 
         void Start()
         {
+            // Create the objectList
             objectList = new List<GameObject>(); 
         }
     }

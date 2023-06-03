@@ -2137,7 +2137,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 170, y: 60}
+  m_SizeDelta: {x: 175, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &596965153
 MonoBehaviour:
@@ -2847,7 +2847,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 50}
+  m_SizeDelta: {x: 105, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &749954727
 MonoBehaviour:
@@ -2869,7 +2869,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2:45
+  m_text: 4:44
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb61d2ef76961de4e94a10aa699bb359, type: 2}
   m_sharedMaterial: {fileID: 1529792695215266199, guid: fb61d2ef76961de4e94a10aa699bb359, type: 2}
@@ -2903,7 +2903,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5263,10 +5263,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1d71c6f5c520e4ca2717280bd05e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 180
   objectList:
   - {fileID: 4453187591469389809, guid: 2a5c87d7c694e50488cb117c6d319390, type: 3}
   - {fileID: 1536540077909128048, guid: 633a94eddfe1ce64c813c1983bedca7a, type: 3}
   - {fileID: 8963420478125875996, guid: 577b2bbf123601342b99b8e0651c4ea6, type: 3}
+  hudController: {fileID: 0}
 --- !u!1 &1502622741
 GameObject:
   m_ObjectHideFlags: 0
@@ -5850,6 +5852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e698c3f1616b85543b0588e08ca19419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textTimer: {fileID: 749954727}
 --- !u!1 &1611803141
 GameObject:
   m_ObjectHideFlags: 0

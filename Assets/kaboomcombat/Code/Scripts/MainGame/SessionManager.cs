@@ -23,6 +23,8 @@ namespace kaboomcombat
             hudController = FindObjectOfType<HudController>();
 
             time++;
+
+            StartSession();
         }
 
 
@@ -35,6 +37,12 @@ namespace kaboomcombat
             else{
                 GameOver(true);
             }
+        }
+
+
+        private void StartSession()
+        {
+            DataManager.gameState = GameState.PLAYING;
         }
 
 

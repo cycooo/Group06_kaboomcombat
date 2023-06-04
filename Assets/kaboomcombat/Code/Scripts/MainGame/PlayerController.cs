@@ -12,12 +12,6 @@ namespace kaboomcombat
 {
     public class PlayerController : MonoBehaviour
     {
-        public int id;
-        public int kills;
-        public GameObject playerModel;
-        public InputDevice inputDevice;
-        public string controlScheme;
-
         // References
         private SessionManager sessionManager;
         private List<GameObject> objectList;
@@ -71,50 +65,53 @@ namespace kaboomcombat
 
         private void FixedUpdate()
         {
-            // Get the player's movement input vector
-            Vector2 inputDirection = movement.ReadValue<Vector2>();
-
-            // Draw Rays to visualize player input
-            Debug.DrawRay(transform.position, new Vector3(Mathf.RoundToInt(inputDirection.x), 0f, 0f), Color.blue);
-            Debug.DrawRay(transform.position, new Vector3(0f, 0f, Mathf.RoundToInt(inputDirection.y)), Color.blue);
-
-            // Check for input and if the player is currently moving
-            if (inputDirection != Vector2.zero && !isMoving)
+            if(DataManager.gameState == GameState.PLAYING)
             {
-                // Fire two raycasts (horizontal and vertical directions) to check for objects in the path of the player
-                bool pathBlockedX = Physics.Raycast(transform.position, new Vector3(Mathf.RoundToInt(inputDirection.x), 0f, 0f), 1f, collisionMask);
-                bool pathBlockedY = Physics.Raycast(transform.position, new Vector3(0f, 0f, Mathf.RoundToInt(inputDirection.y)), 1f, collisionMask);
+                // Get the player's movement input vector
+                Vector2 inputDirection = movement.ReadValue<Vector2>();
 
-                // Make the player face the direction they are trying to move in
-                // TODO: Make this less bad
-                if(inputDirection.x >= movementDeadzone)
+                // Draw Rays to visualize player input
+                Debug.DrawRay(transform.position, new Vector3(Mathf.RoundToInt(inputDirection.x), 0f, 0f), Color.blue);
+                Debug.DrawRay(transform.position, new Vector3(0f, 0f, Mathf.RoundToInt(inputDirection.y)), Color.blue);
+
+                // Check for input and if the player is currently moving
+                if (inputDirection != Vector2.zero && !isMoving)
                 {
-                    transform.rotation = Quaternion.Euler(0f, -90f, 0f);
-                }
-                else if(inputDirection.x <= -movementDeadzone)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                }
-                else if(inputDirection.y >= movementDeadzone)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                }
-                else if(inputDirection.y <= -movementDeadzone)
-                {
-                    transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                }
+                    // Fire two raycasts (horizontal and vertical directions) to check for objects in the path of the player
+                    bool pathBlockedX = Physics.Raycast(transform.position, new Vector3(Mathf.RoundToInt(inputDirection.x), 0f, 0f), 1f, collisionMask);
+                    bool pathBlockedY = Physics.Raycast(transform.position, new Vector3(0f, 0f, Mathf.RoundToInt(inputDirection.y)), 1f, collisionMask);
+
+                    // Make the player face the direction they are trying to move in
+                    // TODO: Make this less bad
+                    if (inputDirection.x >= movementDeadzone)
+                    {
+                        transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+                    }
+                    else if (inputDirection.x <= -movementDeadzone)
+                    {
+                        transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                    }
+                    else if (inputDirection.y >= movementDeadzone)
+                    {
+                        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    }
+                    else if (inputDirection.y <= -movementDeadzone)
+                    {
+                        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    }
 
 
-                // Check for horizontal input over a certain threshold and if the player's path is blocked
-                if (Mathf.Abs(inputDirection.x) >= movementDeadzone && !pathBlockedX)
-                {
-                    StartCoroutine(MovePlayer(new Vector3(Mathf.Sign(inputDirection.x), 0f, 0f)));
+                    // Check for horizontal input over a certain threshold and if the player's path is blocked
+                    if (Mathf.Abs(inputDirection.x) >= movementDeadzone && !pathBlockedX)
+                    {
+                        StartCoroutine(MovePlayer(new Vector3(Mathf.Sign(inputDirection.x), 0f, 0f)));
 
-                }
-                // Check for vertical input over a certain threshold and if the player's path is blocked
-                else if (Mathf.Abs(inputDirection.y) >= movementDeadzone && !pathBlockedY)
-                {
-                    StartCoroutine(MovePlayer(new Vector3(0f, 0f, Mathf.Sign(inputDirection.y))));
+                    }
+                    // Check for vertical input over a certain threshold and if the player's path is blocked
+                    else if (Mathf.Abs(inputDirection.y) >= movementDeadzone && !pathBlockedY)
+                    {
+                        StartCoroutine(MovePlayer(new Vector3(0f, 0f, Mathf.Sign(inputDirection.y))));
+                    }
                 }
             }
         }
@@ -153,10 +150,13 @@ namespace kaboomcombat
         // Function is called by the Input Event "PlaceBomb"
         private void PlaceBomb(InputAction.CallbackContext obj)
         {
-            // Only place a bomb if a bomb is not already at the player's position
-            if(LevelManager.SearchLevelTile(transform.position) == null)
+            if(DataManager.gameState == GameState.PLAYING)
             {
-                LevelManager.SpawnObject(objectList[2], transform.position);
+                // Only place a bomb if a bomb is not already at the player's position
+                if (LevelManager.SearchLevelTile(transform.position) == null)
+                {
+                    LevelManager.SpawnObject(objectList[2], transform.position);
+                }
             }
         }
     }

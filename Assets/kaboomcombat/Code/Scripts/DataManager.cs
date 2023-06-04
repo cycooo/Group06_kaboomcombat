@@ -6,6 +6,7 @@ namespace kaboomcombat
 {
     public static class DataManager
     {
-        public static List<PlayerController> playerList = new List<PlayerController>();
+        public static List<Player> playerListStatic = new List<Player>();
+        public static GameState gameState = GameState.WAITING;
     }
 }

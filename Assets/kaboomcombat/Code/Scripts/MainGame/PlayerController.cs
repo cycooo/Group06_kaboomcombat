@@ -62,6 +62,11 @@ namespace kaboomcombat
             player.Disable();
         }
 
+        private void OnDestroy()
+        {
+            sessionManager.playerList.Remove(gameObject);
+        }
+
 
         private void FixedUpdate()
         {

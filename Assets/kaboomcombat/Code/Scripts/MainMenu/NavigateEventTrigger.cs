@@ -13,7 +13,7 @@ namespace kaboomcombat
 
         private void Select()
         {
-            FindObjectOfType<MainMenuController>().UpdateMenuPointer();
+            FindObjectOfType<MainMenu>().UpdateMenuPointer();
         }
     }
 }

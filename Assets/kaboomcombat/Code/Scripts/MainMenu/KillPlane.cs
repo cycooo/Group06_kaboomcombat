@@ -1,6 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+// Killplane class
+// ====================================================================================================================
+// Micro class that destroys any object that touches this object (i.e. a killplane)
+
+
 using UnityEngine;
+
 
 public class KillPlane : MonoBehaviour
 {

@@ -1,6 +1,6 @@
 // BombController class
 // =====================================================================================================================
-
+// Handles bomb parameters (timer, bombPower etc.) and explosions
 
 using UnityEngine;
 

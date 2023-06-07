@@ -1,5 +1,6 @@
 // PlayerController class
 // =====================================================================================================================
+// Handles the player's movement
 
 
 using System.Collections;
@@ -13,6 +14,7 @@ namespace kaboomcombat
     public class PlayerController : MonoBehaviour
     {
         // References
+        private Player player;
         private SessionManager sessionManager;
         private List<GameObject> objectList;
         public GameObject playerModelContainer;
@@ -20,8 +22,9 @@ namespace kaboomcombat
 
         // Input references
         private InputActionAsset inputAsset;
-        private InputActionMap player;
+        private InputActionMap playerActionMap;
         private InputAction movement;
+        private Vector2 inputDirection;
 
         // Movement fields
         public float moveTime = 0.2f;
@@ -32,12 +35,13 @@ namespace kaboomcombat
         void Awake()
         {
             // Get references to sessionManager and objectList
+            player = GetComponent<Player>();
             sessionManager = FindObjectOfType<SessionManager>();
             objectList = sessionManager.objectList;
 
             // Get references to inputAsset and the "Player" action map
             inputAsset = GetComponent<PlayerInput>().actions;
-            player = inputAsset.FindActionMap("Player");
+            playerActionMap = inputAsset.FindActionMap("Player");
         }
 
 
@@ -46,20 +50,27 @@ namespace kaboomcombat
             // InputSystem components have to be enabled and disabled according to the object they are attached to.
 
             // Subscribe to the started event of the PlaceBomb action
-            player.FindAction("PlaceBomb").started += PlaceBomb;
+            playerActionMap.FindAction("PlaceBomb").started += PlaceBomb;
             // Get reference to the movement action
-            movement = player.FindAction("Movement");
+            movement = playerActionMap.FindAction("Movement");
             // Enable the Player Action Map
-            player.Enable();        
+            playerActionMap.Enable();        
        }
 
 
        private void OnDisable()
         {
             // Unsubscribe from the PlaceBomb action
-            player.FindAction("PlaceBomb").started -= PlaceBomb;
+            playerActionMap.FindAction("PlaceBomb").started -= PlaceBomb;
             // Disable the Player Action Map
-            player.Disable();
+            playerActionMap.Disable();
+        }
+
+
+        private void OnDestroy()
+        {
+            // Remove the player from the sessionManager playerList when it is destroyed
+            sessionManager.playerList.Remove(gameObject);
         }
 
 
@@ -68,7 +79,7 @@ namespace kaboomcombat
             if(DataManager.gameState == GameState.PLAYING)
             {
                 // Get the player's movement input vector
-                Vector2 inputDirection = movement.ReadValue<Vector2>();
+                inputDirection = movement.ReadValue<Vector2>();
 
                 // Draw Rays to visualize player input
                 Debug.DrawRay(transform.position, new Vector3(Mathf.RoundToInt(inputDirection.x), 0f, 0f), Color.blue);
@@ -155,7 +166,8 @@ namespace kaboomcombat
                 // Only place a bomb if a bomb is not already at the player's position
                 if (LevelManager.SearchLevelTile(transform.position) == null)
                 {
-                    LevelManager.SpawnObject(objectList[2], transform.position);
+                    GameObject bombInstance = LevelManager.SpawnObject(objectList[2], transform.position);
+                    bombInstance.GetComponent<BombController>().bombPower = player.bombPower;
                 }
             }
         }

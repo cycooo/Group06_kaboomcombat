@@ -1,5 +1,6 @@
-// LevelManager class
+// LevelManager Class
 // =====================================================================================================================
+// Handles everything to do with the level itself, ex. level generation, randomness, adding/removing objects etc.
 
 
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace kaboomcombat
         // Level variables
         private int levelWidth = 13;
         private int levelHeight = 11;
-        private int randomness = 7;
+        private int randomness = 0;
 
         // References
         private SessionManager sessionManager;

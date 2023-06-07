@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace kaboomcombat
 {
@@ -9,6 +6,7 @@ namespace kaboomcombat
         MENU,
         WAITING,
         PLAYING,
-        GAMEOVER
+        GAMEOVER,
+        PAUSED
     }
 }

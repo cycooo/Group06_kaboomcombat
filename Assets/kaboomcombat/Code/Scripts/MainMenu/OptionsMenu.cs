@@ -1,3 +1,8 @@
+// OptionsMenu class
+// ====================================================================================================================
+// Handles the options submenu of the main menu
+
+
 using kaboomcombat;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,6 +1,11 @@
-using System.Collections;
+// DataManager class
+// ====================================================================================================================
+// This static class is used to store global variables, such as the initial list of players and the gamestate enum
+// Since it's static, the class can be accessed from anywhere without a reference (just use the DataManager type)
+
+
 using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace kaboomcombat
 {

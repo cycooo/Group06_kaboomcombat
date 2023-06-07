@@ -1,5 +1,6 @@
 // Explosion class
 // =====================================================================================================================
+// Mini-class that handles explosion objects and what happens when they hit certain other objects
 
 
 using UnityEngine;

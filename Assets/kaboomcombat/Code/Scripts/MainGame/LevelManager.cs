@@ -1,5 +1,6 @@
-// LevelManager class
+// LevelManager Class
 // =====================================================================================================================
+// Handles everything to do with the level itself, ex. level generation, randomness, adding/removing objects etc.
 
 
 using System.Collections.Generic;

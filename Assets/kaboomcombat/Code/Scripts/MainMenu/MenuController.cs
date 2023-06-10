@@ -19,6 +19,8 @@ namespace kaboomcombat
         private TutorialMenu tutorialMenu;
         private OptionsMenu optionsMenu;
 
+        private PlayerPortraitManager playerPortraitManager;
+
         // Parameters used for the transition between two submenus
         private bool animationFinished = true;
         private float menuSwitchTime = 0.5f;
@@ -50,6 +52,8 @@ namespace kaboomcombat
             tutorialMenu = GetComponent<TutorialMenu>();
             optionsMenu = GetComponent<OptionsMenu>();
 
+            playerPortraitManager = GetComponent<PlayerPortraitManager>();
+
             eventSystem = FindObjectOfType<EventSystem>();
 
             // Assign the gamestate to MENU, since we're in the main menu
@@ -57,7 +61,6 @@ namespace kaboomcombat
             
             // Set the gravity for the falling bombs in the background
             Physics.gravity = new Vector3(0f, -1f, 0f);
-
 
             AssignSpawnLimits();
             SpawnBackgroundObject();

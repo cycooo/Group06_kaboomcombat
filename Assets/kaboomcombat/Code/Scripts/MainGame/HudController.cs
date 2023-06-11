@@ -4,21 +4,32 @@
 
 
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
-
+using System.Collections;
 
 namespace kaboomcombat
 {
     public class HudController : MonoBehaviour
     {
-        private bool open = true;
+        private bool open = false;
+        private float hudOpenTime = 0.5f;
 
         // References
         private SessionManager sessionManager;
         public TextMeshProUGUI textTimer;
 
+        public GameObject panelHud;
+        public GameObject panelCountdown;
+        public RectTransform panelNumber;
+        public RectTransform panelGo;
+        public Image imageNumber;
+
+        public Sprite[] numberSprites = new Sprite[3];
+
         public RectTransform panelLeft;
         public RectTransform panelRight;
+        public RectTransform panelTimer;
 
         // Reference to the array used to store all player information panels for easy access
         public GameObject[] panelPlayerHudArray = new GameObject[4];
@@ -31,13 +42,16 @@ namespace kaboomcombat
 
             // First, disable all player information panels to avoid errors on level load
             DisablePlayerPanels();
+            panelHud.SetActive(false);
             // Initialize the hud after a small delay to give the player info panels time to get the information they need
-            Invoke("InitializeHud", 1f);
+            Invoke("InitializeHud", 0.2f);
 
+            // If the hud is set to be closed on start, set the panel's positions appropriately
             if(!open)
             {
                 panelLeft.anchoredPosition = new Vector3(-250f, -360f, 0f);
                 panelRight.anchoredPosition = new Vector3(250f, -360f, 0f);
+                panelTimer.anchoredPosition = new Vector3(0f, 60f, 0f);
             }
         }
 
@@ -70,12 +84,161 @@ namespace kaboomcombat
             }
         }
 
+
+        // Function to disable every player panel
         public void DisablePlayerPanels()
         {
             foreach (GameObject playerPanelHud in panelPlayerHudArray)
             {
                 playerPanelHud.SetActive(false);
             }
+        }
+
+
+        // Function that animates the hud opening
+        public void OpenHud()
+        {
+            LTDescr leftTween = LeanTween.move(panelLeft, new Vector3(0f, -360f, 0f), hudOpenTime);
+            leftTween.setEaseOutQuart();
+
+            LTDescr rightTween = LeanTween.move(panelRight, new Vector3(0f, -360f, 0f), hudOpenTime);
+            rightTween.setEaseOutQuart();
+
+            LTDescr timerTween = LeanTween.move(panelTimer, new Vector3(0f, -20f, 0f), hudOpenTime);
+            timerTween.setEaseOutQuart();
+
+            open = true;
+        }
+
+
+        // Function that animates the hud closing
+        public void CloseHud()
+        {
+            LTDescr leftTween = LeanTween.move(panelLeft, new Vector3(-250f, -360f, 0f), hudOpenTime);
+            leftTween.setEaseOutQuart();
+
+            LTDescr rightTween = LeanTween.move(panelRight, new Vector3(250f, -360f, 0f), hudOpenTime);
+            rightTween.setEaseOutQuart();
+
+            LTDescr timerTween = LeanTween.move(panelTimer, new Vector3(0f, 60f, 0f), hudOpenTime);
+            timerTween.setEaseOutQuart();
+
+            open = false;
+        }
+
+
+        // Function that animates the start countdown
+        public IEnumerator StartHudCountdown()
+        {
+            // Wait for 1 second
+            yield return new WaitForSeconds(1);
+
+            // Set the countdown panel to active
+            panelCountdown.SetActive(true);
+
+            // Define leantween descriptions
+            LTDescr numberRotationTween;
+            LTDescr numberScaleTween;
+            LTDescr numberFadeTween;
+
+
+            // 3
+            // Set initial parameters before animation
+            LeanTween.alpha(panelNumber, 0f, 0f);
+            LeanTween.scale(panelNumber, new Vector3(2f, 2f, 2f), 0f);
+            panelNumber.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+            // Apply the correct sprite
+            imageNumber.sprite = numberSprites[2];
+
+            // Animate the panel rotating, scaling and fading in, before fading out after
+            LeanTween.alpha(panelNumber, 1f, 0.2f);
+            numberScaleTween = LeanTween.scale(panelNumber, new Vector3(1f, 1f, 1f), 0.3f).setEaseOutQuart();
+            numberRotationTween = LeanTween.rotateAround(panelNumber, Vector3.forward, 180f, 0.3f);
+            numberRotationTween.setEaseOutQuart();
+            numberRotationTween.setOnComplete(delegate ()
+            {
+                numberFadeTween = LeanTween.alpha(panelNumber, 0f, 0.7f);
+            });
+            
+
+            // Wait for one second
+            yield return new WaitForSeconds(1);
+
+
+            // 2
+            // Set initial parameters before animation
+            LeanTween.alpha(panelNumber, 0f, 0f);
+            LeanTween.scale(panelNumber, new Vector3(2f, 2f, 2f), 0f);
+            panelNumber.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+            // Apply the correct sprite
+            imageNumber.sprite = numberSprites[1];
+
+            // Animate the panel rotating, scaling and fading in, before fading out after
+            LeanTween.alpha(panelNumber, 1f, 0.2f);
+            numberScaleTween = LeanTween.scale(panelNumber, new Vector3(1f, 1f, 1f), 0.3f).setEaseOutQuart();
+            numberRotationTween = LeanTween.rotateAround(panelNumber, Vector3.forward, 180f, 0.3f);
+            numberRotationTween.setEaseOutQuart();
+            numberRotationTween.setOnComplete(delegate ()
+            {
+                numberFadeTween = LeanTween.alpha(panelNumber, 0f, 0.7f);
+            });
+
+
+            // Wait for one second
+            yield return new WaitForSeconds(1);
+
+
+            // 1
+            // Set initial parameters before animation
+            LeanTween.alpha(panelNumber, 0f, 0f);
+            LeanTween.scale(panelNumber, new Vector3(2f, 2f, 2f), 0f);
+            panelNumber.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+            // Apply the correct sprite
+            imageNumber.sprite = numberSprites[0];
+
+            // Animate the panel rotating, scaling and fading in, before fading out after
+            LeanTween.alpha(panelNumber, 1f, 0.2f);
+            numberScaleTween = LeanTween.scale(panelNumber, new Vector3(1f, 1f, 1f), 0.3f).setEaseOutQuart();
+            numberRotationTween = LeanTween.rotateAround(panelNumber, Vector3.forward, 180f, 0.3f);
+            numberRotationTween.setEaseOutQuart();
+            numberRotationTween.setOnComplete(delegate ()
+            {
+                numberFadeTween = LeanTween.alpha(panelNumber, 0f, 0.7f);
+            });
+
+
+            // Wait for one second
+            yield return new WaitForSeconds(1);
+            // Start the game as the countdown is over
+            sessionManager.StartGame();
+
+
+            // Set the number panel inactive and the "go" panel active
+            panelNumber.gameObject.SetActive(false);
+            panelGo.gameObject.SetActive(true);
+
+
+            // Go
+            // Set initial parameters before animation
+            LeanTween.alpha(panelGo, 0f, 0f);
+            LeanTween.scale(panelGo, new Vector3(2f, 2f, 2f), 0f);
+            panelGo.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+
+            // Animate the panel rotating, scaling and fading in, before fading out after 1 second
+            LeanTween.alpha(panelGo, 1f, 0.2f);
+            numberScaleTween = LeanTween.scale(panelGo, new Vector3(1f, 1f, 1f), 0.3f).setEaseOutQuart();
+            numberRotationTween = LeanTween.rotateAround(panelGo, Vector3.forward, 180f, 0.3f);
+            numberRotationTween.setEaseOutQuart();
+
+            yield return new WaitForSeconds(1);
+               
+            numberFadeTween = LeanTween.alpha(panelGo, 0f, 0.7f);
+
+            yield return new WaitForSeconds(1);
+
+            // Disbale the two remaining panels in the countdown hud
+            panelGo.gameObject.SetActive(false);
+            panelCountdown.SetActive(false);
         }
     }
 }

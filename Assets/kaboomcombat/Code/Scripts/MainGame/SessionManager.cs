@@ -61,15 +61,17 @@ namespace kaboomcombat
         {
             // Set the gamestate to waiting to the players can't move yet
             DataManager.gameState = GameState.WAITING;
-            // Temporary: start the game right away
-            StartGame();
+            // Start the Countdown animation
+            StartCoroutine(hudController.StartHudCountdown());
         }
 
         // Function that starts the gameplay
-        private void StartGame()
+        public void StartGame()
         {
             // Set the gamestate so players can move
             DataManager.gameState = GameState.PLAYING;
+            hudController.panelHud.SetActive(true);
+            hudController.OpenHud();
         }
 
 

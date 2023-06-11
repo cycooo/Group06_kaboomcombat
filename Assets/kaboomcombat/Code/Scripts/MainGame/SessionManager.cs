@@ -81,6 +81,9 @@ namespace kaboomcombat
         private void GameOver(bool timeOut)
         {
             DataManager.gameState = GameState.GAMEOVER;
+
+            hudController.CloseHud();
+
             cameraController.MoveTo(playerList[0].transform.position, 1f);
             cameraController.ZoomTo(10f, 1f);
         }

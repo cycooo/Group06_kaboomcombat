@@ -98,6 +98,8 @@ namespace kaboomcombat
         // Function that animates the hud opening
         public void OpenHud()
         {
+            panelHud.SetActive(true);
+
             LTDescr leftTween = LeanTween.move(panelLeft, new Vector3(0f, -360f, 0f), hudOpenTime);
             leftTween.setEaseOutQuart();
 
@@ -122,8 +124,11 @@ namespace kaboomcombat
 
             LTDescr timerTween = LeanTween.move(panelTimer, new Vector3(0f, 60f, 0f), hudOpenTime);
             timerTween.setEaseOutQuart();
-
-            open = false;
+            timerTween.setOnComplete(delegate ()
+            {
+                panelHud.SetActive(false);
+                open = false;
+            });
         }
 
 

@@ -18,9 +18,7 @@ namespace kaboomcombat
 
         // References
         private SessionManager sessionManager;
-
         public static GameObject[,] levelMatrix;
-
         private List<GameObject> objectList;
 
 
@@ -101,7 +99,6 @@ namespace kaboomcombat
             {
                 Debug.LogError("[DestroyObject] Target object is null!");
             }
-
         }
 
         // Function that generates a random level layout, then calls buildLevel()

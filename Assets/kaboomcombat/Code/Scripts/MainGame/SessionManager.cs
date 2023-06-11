@@ -25,6 +25,7 @@ namespace kaboomcombat
         // References
         private PlayerInputManager playerInputManager;
         private HudController hudController;
+        private CameraController cameraController;
 
 
         void Awake()
@@ -32,6 +33,7 @@ namespace kaboomcombat
             // Assign references
             hudController = GetComponent<HudController>();
             playerInputManager = GetComponent<PlayerInputManager>();
+            cameraController = FindObjectOfType<CameraController>();
 
             // Add one second to the time because it skips the first second when displayed in game
             time++;
@@ -78,7 +80,22 @@ namespace kaboomcombat
         // TODO: Function that handles game over scenarios
         private void GameOver(bool timeOut)
         {
+            DataManager.gameState = GameState.GAMEOVER;
 
+            hudController.CloseHud();
+
+            cameraController.MoveTo(playerList[0].transform.position, 1f);
+            cameraController.ZoomTo(10f, 1f);
+        }
+
+
+        // Function that checks if the game is over (if only 1 player remains)
+        public void CheckGameOver()
+        {
+            if(playerList.Count == 1)
+            {
+                GameOver(false);
+            }
         }
 
 
@@ -137,10 +154,13 @@ namespace kaboomcombat
         // Update the time
         private void UpdateTime()
         {
-            time -= Time.deltaTime;
+            if(DataManager.gameState == GameState.PLAYING)
+            {
+                time -= Time.deltaTime;
 
-            // Update the timer hud element
-            hudController.UpdateTimer(time);
+                // Update the timer hud element
+                hudController.UpdateTimer(time);
+            }
         }
     }
 }

@@ -229,6 +229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5405565}
+  - component: {fileID: 5405566}
   - component: {fileID: 5405564}
   - component: {fileID: 5405563}
   m_Layer: 0
@@ -271,7 +272,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 25
+  field of view: 26
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -304,6 +305,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+--- !u!114 &5405566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd8e7b7e0074724c877e3f7a37057a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []
+  cam: {fileID: 0}
+  offset: {x: 0, y: 31, z: -11.5}
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &41254941
 GameObject:
   m_ObjectHideFlags: 0

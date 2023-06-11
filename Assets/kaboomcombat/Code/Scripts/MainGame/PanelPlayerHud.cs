@@ -13,7 +13,7 @@ namespace kaboomcombat
         // The id of the player assigned to the information panel
         public int playerId;
 
-        void Start()
+        private void Start()
         {
             // Assign the player portrait class's playerId, since it is a child of this object
             GetComponentInChildren<PlayerPortrait>().playerId = playerId;

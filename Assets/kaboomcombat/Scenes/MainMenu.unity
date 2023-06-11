@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModels:
-  - {fileID: 1815940028239644, guid: aebcc2cb4852f454d8eadc39e8ed4306, type: 3}
+  - {fileID: 1365012927439312, guid: 30000ed2a43cbc64ab9238c88d1f1b2a, type: 3}
   - {fileID: 1981386913803054, guid: 1b4e3d4d0b79d6e4fbca52ed8b0c9125, type: 3}
   - {fileID: 1181921010304908, guid: be5a0ef69753ab6409fc8a339c1bc62c, type: 3}
   - {fileID: 1093078912564410, guid: acf7de9a3babac74ca1395a7e171d204, type: 3}
@@ -1471,10 +1471,10 @@ MonoBehaviour:
   - {r: 0.9333334, g: 0.7803922, b: 0.24705884, a: 1}
   - {r: 0.37254903, g: 0.81568635, b: 0.3137255, a: 1}
   playerPortraits:
-  - {fileID: 21300000, guid: 10b94e59f2e02244e958f3fb17bbc7bb, type: 3}
-  - {fileID: 21300000, guid: 2e921c1a4ecaf904cacefe65add84752, type: 3}
-  - {fileID: 21300000, guid: c20dc4f866d81ee45b1fbd4ee9a91eab, type: 3}
-  - {fileID: 21300000, guid: 9e259a8898c1c964e8a888bed3c0232e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &416114843
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,6 +3040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 707694313}
   - component: {fileID: 707694314}
+  - component: {fileID: 707694319}
   - component: {fileID: 707694316}
   - component: {fileID: 707694317}
   - component: {fileID: 707694318}
@@ -3086,7 +3087,7 @@ MonoBehaviour:
   - {fileID: 8963420478125875996, guid: f39461b2f68a5ef42b2949234170398c, type: 3}
   - {fileID: 8963420478125875996, guid: 9dec198aa7972d54f907aed89c98ff4c, type: 3}
   mainCamera: {fileID: 1560476667}
-  eventSystem: {fileID: 0}
+  eventSystem: {fileID: 847100518}
 --- !u!114 &707694315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3144,22 +3145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelMain: {fileID: 1219319013}
+  playerManager: {fileID: 0}
   panelPlayerFrame: {fileID: 371146121}
-  playerModels:
-  - {fileID: 1815940028239644, guid: aebcc2cb4852f454d8eadc39e8ed4306, type: 3}
-  - {fileID: 1981386913803054, guid: 1b4e3d4d0b79d6e4fbca52ed8b0c9125, type: 3}
-  - {fileID: 1181921010304908, guid: be5a0ef69753ab6409fc8a339c1bc62c, type: 3}
-  - {fileID: 1093078912564410, guid: acf7de9a3babac74ca1395a7e171d204, type: 3}
-  playerColors:
-  - {r: 0.21176472, g: 0.41960788, b: 0.7960785, a: 1}
-  - {r: 0.92549026, g: 0.31764707, b: 0.27058825, a: 1}
-  - {r: 0.9333334, g: 0.7803922, b: 0.24705884, a: 1}
-  - {r: 0.37254903, g: 0.81568635, b: 0.3137255, a: 1}
-  playerPortraits:
-  - {fileID: 21300000, guid: 10b94e59f2e02244e958f3fb17bbc7bb, type: 3}
-  - {fileID: 21300000, guid: 2e921c1a4ecaf904cacefe65add84752, type: 3}
-  - {fileID: 21300000, guid: c20dc4f866d81ee45b1fbd4ee9a91eab, type: 3}
-  - {fileID: 21300000, guid: 9e259a8898c1c964e8a888bed3c0232e, type: 3}
   panelPlayerPrefab: {fileID: 1760730934891077697, guid: 0c5988001fbf8484fade9788ffe4776e, type: 3}
   panelJoinMessagePrefab: {fileID: 3634339152779250058, guid: 4190a49291782ad46ba12ef1133ccf69, type: 3}
   panelJoinMessageSmallPrefab: {fileID: 6541000116648955824, guid: 901a50c729aeb74469ae771bf2f0f06f, type: 3}
@@ -3193,6 +3180,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelOptions: {fileID: 250885447}
+--- !u!114 &707694319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707694312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a52e68ef84e10c48a20285c4c147350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPortraitRig: {fileID: 6520845626909571435, guid: 4a4611c17114a2444bea3eb136e1357c, type: 3}
+  texture: {fileID: 0}
+  playerPortraits:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &758458624
 GameObject:
   m_ObjectHideFlags: 0

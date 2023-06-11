@@ -5550,7 +5550,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e698c3f1616b85543b0588e08ca19419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  open: 0
   textTimer: {fileID: 749954727}
+  panelLeft: {fileID: 1812291752}
+  panelRight: {fileID: 125315401}
   panelPlayerHudArray:
   - {fileID: 1303739441}
   - {fileID: 900130749}

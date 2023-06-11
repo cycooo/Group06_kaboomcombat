@@ -11,9 +11,15 @@ namespace kaboomcombat
 {
     public class HudController : MonoBehaviour
     {
+        private bool open = true;
+
         // References
         private SessionManager sessionManager;
         public TextMeshProUGUI textTimer;
+
+        public RectTransform panelLeft;
+        public RectTransform panelRight;
+
         // Reference to the array used to store all player information panels for easy access
         public GameObject[] panelPlayerHudArray = new GameObject[4];
 
@@ -23,8 +29,16 @@ namespace kaboomcombat
             // Assign the sessionManager
             sessionManager = FindObjectOfType<SessionManager>();
 
-            // Initialize the hud ._.
-            InitializeHud();
+            // First, disable all player information panels to avoid errors on level load
+            DisablePlayerPanels();
+            // Initialize the hud after a small delay to give the player info panels time to get the information they need
+            Invoke("InitializeHud", 1f);
+
+            if(!open)
+            {
+                panelLeft.anchoredPosition = new Vector3(-250f, -360f, 0f);
+                panelRight.anchoredPosition = new Vector3(250f, -360f, 0f);
+            }
         }
 
         
@@ -46,12 +60,6 @@ namespace kaboomcombat
         // because variables weren't assigned
         public void InitializeHud()
         {
-            // First, disable all player information panels to avoid errors on level load
-            foreach(GameObject playerPanelHud in panelPlayerHudArray)
-            {
-                playerPanelHud.SetActive(false);
-            }
-
             // Find out how many player information panels we need, set the id for each one and enable only the ones
             // that are needed (Ex. With 2 players, only 2 information panels are enabled)
             // We use DataManager's playerListStatic count to find out the total number of players
@@ -59,6 +67,14 @@ namespace kaboomcombat
             {
                 panelPlayerHudArray[i].GetComponent<PanelPlayerHud>().playerId = i;
                 panelPlayerHudArray[i].SetActive(true);
+            }
+        }
+
+        public void DisablePlayerPanels()
+        {
+            foreach (GameObject playerPanelHud in panelPlayerHudArray)
+            {
+                playerPanelHud.SetActive(false);
             }
         }
     }

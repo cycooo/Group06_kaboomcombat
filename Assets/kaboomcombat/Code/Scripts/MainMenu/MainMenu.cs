@@ -27,7 +27,7 @@ namespace kaboomcombat
         private GameObject panelPlayerHBox;
 
         // Reference to playerInputManager
-        private PlayerInputManager playerInputManager;
+        public PlayerInputManager playerInputManager;
 
         // References to UI element prefabs
         public GameObject panelPlayerPrefab;

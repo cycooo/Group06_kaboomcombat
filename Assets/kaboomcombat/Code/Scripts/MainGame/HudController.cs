@@ -17,6 +17,7 @@ namespace kaboomcombat
 
         // References
         private SessionManager sessionManager;
+        private CameraController cameraController;
         public TextMeshProUGUI textTimer;
 
         public GameObject panelHud;
@@ -39,6 +40,7 @@ namespace kaboomcombat
         {
             // Assign the sessionManager
             sessionManager = FindObjectOfType<SessionManager>();
+            cameraController = FindObjectOfType<CameraController>();
 
             // First, disable all player information panels to avoid errors on level load
             DisablePlayerPanels();
@@ -137,6 +139,8 @@ namespace kaboomcombat
         {
             // Wait for 1 second
             yield return new WaitForSeconds(1);
+
+            cameraController.ZoomTo(28, 3f);
 
             // Set the countdown panel to active
             panelCountdown.SetActive(true);

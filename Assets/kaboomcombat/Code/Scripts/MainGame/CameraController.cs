@@ -3,13 +3,13 @@
 // Handles everything to do with camera movements and zooming in the main game
 
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace kaboomcombat
 {
-    [RequireComponent(typeof(Camera))]
     public class CameraController : MonoBehaviour
     {
         // References
@@ -26,7 +26,7 @@ namespace kaboomcombat
         private float smoothTime = 0.7f;
         // Zoom parameters
         private float minZoom = 26f;
-        private float maxZoom = 18f;
+        private float maxZoom = 20f;
         private float zoomLimiter = 16f;
 
 
@@ -34,7 +34,7 @@ namespace kaboomcombat
         {
             // Get references
             sessionManager = FindObjectOfType<SessionManager>();
-            cam = GetComponent<Camera>();
+            cam = GetComponentInChildren<Camera>();
         }
 
 
@@ -64,6 +64,27 @@ namespace kaboomcombat
             LTDescr zoomTween = LeanTween.value(cam.gameObject, cam.fieldOfView, targetZoom, zoomTime);
             zoomTween.setEaseOutSine();
             zoomTween.setOnUpdate( (float val) => { cam.fieldOfView = val; });
+        }
+
+
+        public IEnumerator Shake(float duration, float magnitude)
+        {
+            Vector3 origPos = transform.position;
+
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                float x = Random.Range(-1f, 1f) * magnitude;
+                float z = Random.Range(-1f, 1f) * magnitude;
+
+                transform.localPosition += new Vector3(x, origPos.y, z);
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = origPos;
         }
 
 

@@ -46,7 +46,7 @@ namespace kaboomcombat
             DisablePlayerPanels();
             panelHud.SetActive(false);
             // Initialize the hud after a small delay to give the player info panels time to get the information they need
-            Invoke("InitializeHud", 0.2f);
+            Invoke("InitializeHud", 0.5f);
 
             // If the hud is set to be closed on start, set the panel's positions appropriately
             if(!open)
@@ -69,6 +69,14 @@ namespace kaboomcombat
             textTimer.text = string.Format("{0:0}:{1:00}", minutes, seconds);
         }
 
+        public void UpdatePlayerPanels()
+        {
+            for(int i = 0; i < panelPlayerHudArray.Length; i++)
+            {
+                panelPlayerHudArray[i].GetComponent<PanelPlayerHud>().UpdatePanel();
+            }
+        }
+
 
         // Function that initializes the hud.
         // Determine the amount of player information panels to display, what to display on them.
@@ -84,6 +92,8 @@ namespace kaboomcombat
                 panelPlayerHudArray[i].GetComponent<PanelPlayerHud>().playerId = i;
                 panelPlayerHudArray[i].SetActive(true);
             }
+
+            UpdatePlayerPanels();
         }
 
 

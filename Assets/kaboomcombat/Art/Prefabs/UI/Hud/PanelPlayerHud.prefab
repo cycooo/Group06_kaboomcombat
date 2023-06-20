@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 6718518385662230184}
   - component: {fileID: 6718518385662230187}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextKills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 6718518386395389616}
   - component: {fileID: 6718518386395389619}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextBombPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726,6 +726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8092a185aeb24eb4d93cc1e6f3510f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 0
+  textBombPower: {fileID: 6718518386395389619}
+  textKills: {fileID: 6718518385662230187}
 --- !u!222 &6718518386445221827
 CanvasRenderer:
   m_ObjectHideFlags: 0

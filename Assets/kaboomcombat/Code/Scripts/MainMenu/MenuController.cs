@@ -80,6 +80,8 @@ namespace kaboomcombat
         // Function that forcefully loads the MainGame scene (for debugging)
         public void StartGameForced()
         {
+            mainMenu.playerInputManager.JoinPlayer();
+            mainMenu.playerInputManager.JoinPlayer();
             SceneManager.LoadScene("MainGame");
         }
 

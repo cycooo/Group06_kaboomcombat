@@ -72,7 +72,7 @@ namespace kaboomcombat
             // Remove the player from the sessionManager playerList when it is destroyed
             sessionManager.playerList.Remove(gameObject);
             sessionManager.CheckGameOver();
-            
+            player.panelPlayerHud.ShowDeath();
         }
 
 

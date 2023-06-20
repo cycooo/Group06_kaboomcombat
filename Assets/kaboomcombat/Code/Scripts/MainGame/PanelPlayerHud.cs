@@ -5,6 +5,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace kaboomcombat
@@ -16,8 +17,18 @@ namespace kaboomcombat
         private Player player;
         private SessionManager sessionManager;
 
+        public RectTransform panelPlayerStats;
+        public RectTransform playerPortrait;
+
+        public Image imageSkull;
+        public Image imagePlayerProfile;
+        public Image imagePlayerProfileOutline;
+        public Image dropShadow;
+        public Image imagePlayermodel;
+
         public TextMeshProUGUI textBombPower;
         public TextMeshProUGUI textKills;
+
 
         private void Start()
         {
@@ -47,5 +58,59 @@ namespace kaboomcombat
             textBombPower.SetText((player.bombPower).ToString());
             textKills.SetText((player.kills).ToString());
         }
+
+        
+        // Animate the panel when the player dies
+        public void ShowDeath()
+        {
+            // Set the skull at a scale of zero and flipped upside down at the start
+            imageSkull.gameObject.SetActive(true);
+            imageSkull.rectTransform.localScale = Vector3.zero;
+            imageSkull.rectTransform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+
+            // Animate the different elements into place
+            LeanTween.scale(playerPortrait, new Vector3(0.4f, 0.4f, 1f), 0.3f).setEaseOutBounce();
+            LeanTween.scale(imageSkull.rectTransform, new Vector3(1f, 1f, 1f), 0.5f).setEaseOutBounce();
+            LeanTween.rotateAround(imageSkull.rectTransform, Vector3.forward, 180f, 0.3f);
+            LeanTween.alpha(imagePlayermodel.rectTransform, 0f, 0.3f).setOnComplete(delegate ()
+            {
+                imagePlayermodel.gameObject.SetActive(false);
+            });
+            LeanTween.alpha(panelPlayerStats, 0f, 0.5f).setOnComplete( delegate()
+            {
+                // This causes problems with the player panels on the right of the screen, since they're mirrored,
+                // setting the player stats panel to inactive breaks the layout
+                // There's probably no problem with not setting it to inactive at all (probably)
+                // Leaving this here just in case
+
+                //panelPlayerStats.gameObject.SetActive(false);
+            });
+
+
+            // this is a nightmare
+            // Text fadeout
+            var fadeoutTextColor = textBombPower.color;
+            fadeoutTextColor.a = 0f;
+            LeanTween.value(textBombPower.gameObject, updateTextColorValueCallback, textBombPower.color, fadeoutTextColor, 0.2f);
+
+            // Circle color fade to gray
+            var fadeoutImageColor = new Color(0.3f, 0.3f, 0.3f);
+            LeanTween.value(textBombPower.gameObject, updateImageColorValueCallback, imagePlayerProfile.color, fadeoutImageColor, 0.2f);
+        }
+
+
+        // weird functions, don't touch
+        void updateTextColorValueCallback(Color val)
+        {
+            textBombPower.color = val;
+            textKills.color = val;
+        }
+        // yes, this one too
+        void updateImageColorValueCallback(Color val)
+        {
+            imagePlayerProfile.color = val;
+        }
+
+
     }
 }

@@ -32,7 +32,6 @@ namespace kaboomcombat
                 if (other.gameObject.CompareTag("Bomb"))
                 {
                     other.gameObject.GetComponent<BombController>().Explode();
-                    ownerPlayer.bombPowerFloat += 0.2f;
                 }
                 else if(other.gameObject.CompareTag("Player"))
                 {

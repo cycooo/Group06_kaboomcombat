@@ -36,7 +36,7 @@ namespace kaboomcombat
         {
             // Get references to sessionManager and objectList
             player = GetComponent<Player>();
-            sessionManager = FindObjectOfType<SessionManager>();
+            sessionManager = player.sessionManager;
             objectList = sessionManager.objectList;
 
             // Get references to inputAsset and the "Player" action map
@@ -72,7 +72,7 @@ namespace kaboomcombat
             // Remove the player from the sessionManager playerList when it is destroyed
             sessionManager.playerList.Remove(gameObject);
             sessionManager.CheckGameOver();
-            
+            player.panelPlayerHud.ShowDeath();
         }
 
 
@@ -169,6 +169,7 @@ namespace kaboomcombat
                 if (LevelManager.SearchLevelTile(transform.position) == null)
                 {
                     GameObject bombInstance = LevelManager.SpawnObject(objectList[2], transform.position);
+                    bombInstance.GetComponent<BombController>().ownerPlayer = player;
                     bombInstance.GetComponent<BombController>().bombPower = player.bombPower;
                 }
             }

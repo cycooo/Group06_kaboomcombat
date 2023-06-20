@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerModels:
-  - {fileID: 1365012927439312, guid: 30000ed2a43cbc64ab9238c88d1f1b2a, type: 3}
+  - {fileID: 1408258074504032, guid: a4f6bfa0cb25f5d4c977bac7394db4c7, type: 3}
   - {fileID: 1981386913803054, guid: 1b4e3d4d0b79d6e4fbca52ed8b0c9125, type: 3}
   - {fileID: 1181921010304908, guid: be5a0ef69753ab6409fc8a339c1bc62c, type: 3}
   - {fileID: 1093078912564410, guid: acf7de9a3babac74ca1395a7e171d204, type: 3}

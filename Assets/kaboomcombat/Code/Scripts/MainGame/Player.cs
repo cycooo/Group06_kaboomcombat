@@ -14,6 +14,7 @@ namespace kaboomcombat
         public int id;
         public int kills = 0;
         public int bombPower = 2;
+        public float bombPowerFloat = 0f;
 
         // Input parameters, used to determine what device and controlScheme each player is using
         public InputDevice inputDevice;
@@ -25,5 +26,45 @@ namespace kaboomcombat
         // Reference to the playerModelContainer which is used as a parent when instantiating the playermodel.
         public GameObject playerModelContainer;
 
+        // References
+        public SessionManager sessionManager;
+        public PanelPlayerHud panelPlayerHud;
+
+
+        private void Awake()
+        {
+            if(DataManager.gameState != GameState.MENU)
+            {
+                sessionManager = FindObjectOfType<SessionManager>();
+            }
+        }
+
+        private void Start()
+        {
+            if (DataManager.gameState != GameState.MENU)
+            {
+                panelPlayerHud = sessionManager.hudController.panelPlayerHudArray[id].GetComponent<PanelPlayerHud>();
+            }
+        }
+
+        // Function that increments kills by 1
+        public void IncrementKills()
+        {
+            kills++;
+            panelPlayerHud.UpdatePanel();
+        }
+
+
+        // Function that increments bombPower by 1
+        public void IncrementBombPower()
+        {
+            // Check if bombPower is lower than the Max defined in SessionManager
+            if(bombPower < sessionManager.bombPowerMax)
+            {
+                // Increment bombPower
+                bombPower++;
+                panelPlayerHud.UpdatePanel();
+            }
+        }
     }
 }

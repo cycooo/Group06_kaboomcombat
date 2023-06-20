@@ -11,6 +11,7 @@ namespace kaboomcombat
     public class Explosion : MonoBehaviour
     {
         private bool active = true;
+        public Player ownerPlayer;
 
         void Start()
         {
@@ -32,11 +33,25 @@ namespace kaboomcombat
                 {
                     other.gameObject.GetComponent<BombController>().Explode();
                 }
+                else if(other.gameObject.CompareTag("Player"))
+                {
+                    ownerPlayer.IncrementKills();
+                    ownerPlayer.IncrementBombPower();
+
+                    LevelManager.DestroyObject(other.gameObject);
+                }
                 // If the object is not indestructible, destroy it
                 // This way, anything caught in the bomb's explosion is destroyed (Players, powerups, brick walls etc.)
                 else if (!other.gameObject.CompareTag("Indestructible"))
                 {
                     LevelManager.DestroyObject(other.gameObject);
+                    ownerPlayer.bombPowerFloat += 0.2f;
+                }
+
+                if(ownerPlayer.bombPowerFloat >= 1)
+                {
+                    ownerPlayer.IncrementBombPower();
+                    ownerPlayer.bombPowerFloat = 0;
                 }
             }
         }

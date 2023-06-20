@@ -82,6 +82,8 @@ namespace kaboomcombat
         {
             mainMenu.playerInputManager.JoinPlayer();
             mainMenu.playerInputManager.JoinPlayer();
+            mainMenu.playerInputManager.JoinPlayer();
+            mainMenu.playerInputManager.JoinPlayer();
             SceneManager.LoadScene("MainGame");
         }
 

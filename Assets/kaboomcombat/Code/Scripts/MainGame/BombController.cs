@@ -13,6 +13,7 @@ namespace kaboomcombat
         public int bombPower = 2;
         public float bombTimer = 3f;
         public bool autoStart = true;
+        public Player ownerPlayer;
 
         // References
         public GameObject explosionPrefab;
@@ -44,6 +45,13 @@ namespace kaboomcombat
         }
 
 
+        private void InstantiateExplosion(GameObject prefab, Vector3 position, Quaternion rotation)
+        {
+            GameObject explosionInstance = Instantiate(prefab, position, rotation);
+            explosionInstance.GetComponent<Explosion>().ownerPlayer = ownerPlayer;
+        }
+
+
         // Function that handles the bomb's explosion
         public void Explode()
         {
@@ -51,7 +59,7 @@ namespace kaboomcombat
             Vector3 currentPos = transform.position;
 
             // Spawn the middle explosion separately so that it doesn't overlap
-            Instantiate(explosionPrefab, currentPos, explosionPrefab.transform.rotation);
+            InstantiateExplosion(explosionPrefab, currentPos, explosionPrefab.transform.rotation);
 
             // Define RaycastHits for every direction
             RaycastHit hitLeft;
@@ -62,8 +70,8 @@ namespace kaboomcombat
 
             /*
             * Cast rays to see if the bomb hits an obstacle
-            * If yes, then only instantiate explosion objects until we hit the object
-            * If no, instantiate all explosion objects according to bombPower
+            * If yes, then only InstantiateExplosion explosion objects until we hit the object
+            * If no, InstantiateExplosion all explosion objects according to bombPower
             *
             * The formula for instantiating the explosion objects is as follows:
             * Start from the bomb x/z position, then subtract/add 1 to it to remove the explosion on top of the bomb,
@@ -102,12 +110,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitLeftMatrixPos.x + 1)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -124,12 +132,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitLeftMatrixPos.x)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -147,12 +155,12 @@ namespace kaboomcombat
                     // If this is the last iteration of the for loop, place an explosionEnd object
                     if(i == currentPos.x - bombPower)
                     {
-                        Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                     // else place a normal explosion object
                     else
                     {
-                        Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                 }
             }
@@ -176,12 +184,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitRightMatrixPos.x - 1)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -198,12 +206,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitRightMatrixPos.x)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -221,12 +229,12 @@ namespace kaboomcombat
                     // If this is the last iteration of the for loop, place an explosionEnd object
                     if(i == currentPos.x + bombPower)
                     {
-                        Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                     // else place a normal explosion object
                     else
                     {
-                        Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                 }
             }
@@ -250,12 +258,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitUpMatrixPos.z - 1)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -272,12 +280,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitUpMatrixPos.z)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -295,12 +303,12 @@ namespace kaboomcombat
                     // If this is the last iteration of the for loop, place an explosionEnd object
                     if(i == currentPos.z + bombPower)
                     {
-                        Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                     // else place a normal explosion object
                     else
                     {
-                        Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                 }
             }
@@ -324,12 +332,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitDownMatrixPos.z + 1)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -346,12 +354,12 @@ namespace kaboomcombat
                         // If this is the last iteration of the for loop, place an explosionEnd object
                         if(i == hitDownMatrixPos.z)
                         {
-                            Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                         // else place a normal explosion object
                         else
                         {
-                            Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                            InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                         }
                     }
                 }
@@ -369,12 +377,12 @@ namespace kaboomcombat
                     // If this is the last iteration of the for loop, place an explosionEnd object
                     if(i == currentPos.z - bombPower)
                     {
-                        Instantiate(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionEndPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                     // else place a normal explosion object
                     else
                     {
-                        Instantiate(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
+                        InstantiateExplosion(explosionPrefab, explosionPos, explosionPrefab.transform.rotation);
                     }
                 }
             }

@@ -36,10 +36,16 @@ namespace kaboomcombat
             if(DataManager.gameState != GameState.MENU)
             {
                 sessionManager = FindObjectOfType<SessionManager>();
-                panelPlayerHud = sessionManager.hudController.panelPlayerHudArray[id].GetComponent<PanelPlayerHud>();
             }
         }
 
+        private void Start()
+        {
+            if (DataManager.gameState != GameState.MENU)
+            {
+                panelPlayerHud = sessionManager.hudController.panelPlayerHudArray[id].GetComponent<PanelPlayerHud>();
+            }
+        }
 
         // Function that increments kills by 1
         public void IncrementKills()

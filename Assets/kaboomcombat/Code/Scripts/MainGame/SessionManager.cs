@@ -112,6 +112,7 @@ namespace kaboomcombat
             // Assign values
             try
             {
+                player.id = DataManager.playerListStatic[playerInput.playerIndex].id;
                 player.playerModel = DataManager.playerListStatic[playerInput.playerIndex].playerModel;
                 player.controlScheme = DataManager.playerListStatic[playerInput.playerIndex].controlScheme;
                 player.inputDevice = DataManager.playerListStatic[playerInput.playerIndex].inputDevice;

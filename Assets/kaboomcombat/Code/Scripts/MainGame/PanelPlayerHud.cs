@@ -23,12 +23,26 @@ namespace kaboomcombat
         {
             // Assign the player portrait class's playerId, since it is a child of this object
             GetComponentInChildren<PlayerPortrait>().playerId = playerId;
-            sessionManager = FindObjectOfType<SessionManager>();
+            CheckReferences();
+        }
+
+        
+        // Function that checks if references are null and assigns them if they are
+        private void CheckReferences()
+        {
+            if(sessionManager == null)
+            {
+                sessionManager = FindObjectOfType<SessionManager>();
+            }
+            if(player == null)
+            {
+                player = sessionManager.playerList[playerId].GetComponent<Player>();
+            }
         }
 
         public void UpdatePanel()
         {
-            player = sessionManager.playerList[playerId].GetComponent<Player>();
+            CheckReferences();
 
             textBombPower.SetText((player.bombPower).ToString());
             textKills.SetText((player.kills).ToString());

@@ -14,6 +14,7 @@ namespace kaboomcombat
     {
         // Game parameters
         public float time = 180;
+        public int bombPowerMax = 8;
 
         // List containing every object that is placed in the levelMatrix
         public List<GameObject> objectList = new List<GameObject>();
@@ -24,7 +25,7 @@ namespace kaboomcombat
 
         // References
         private PlayerInputManager playerInputManager;
-        private HudController hudController;
+        public HudController hudController;
         private CameraController cameraController;
 
 
@@ -74,6 +75,8 @@ namespace kaboomcombat
             DataManager.gameState = GameState.PLAYING;
             hudController.panelHud.SetActive(true);
             hudController.OpenHud();
+
+            // Invoke the bombPower increment function at the start of the game
         }
 
 

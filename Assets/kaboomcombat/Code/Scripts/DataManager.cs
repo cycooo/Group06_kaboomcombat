@@ -12,6 +12,6 @@ namespace kaboomcombat
     public static class DataManager
     {
         public static List<Player> playerListStatic = new List<Player>();
-        public static GameState gameState = GameState.WAITING;
+        public static GameState gameState = GameState.MENU;
     }
 }

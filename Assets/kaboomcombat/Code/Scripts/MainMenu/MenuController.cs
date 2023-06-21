@@ -88,6 +88,12 @@ namespace kaboomcombat
         }
 
 
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+
+
         // Assign the coordinates for the spawn area of the falling bombs
         private void AssignSpawnLimits()
         {

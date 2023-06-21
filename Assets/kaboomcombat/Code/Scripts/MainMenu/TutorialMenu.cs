@@ -40,7 +40,7 @@ namespace kaboomcombat
 
         private void OnDisable()
         {
-            inputAsset.Menu.Cancel.performed += SwitchToMainMenu;
+            inputAsset.Menu.Cancel.performed -= SwitchToMainMenu;
             inputAsset.Disable();
         }
 

@@ -102,7 +102,7 @@ namespace kaboomcombat
             }
             else
             {
-
+                // TODO
             }
         }
 
@@ -170,23 +170,31 @@ namespace kaboomcombat
         }
 
 
+        // Function to handle powerup spawning, which works on a timer
         private void UpdatePowerUpTimer()
         {
+            // If the timer reaches 0, try spawning a powerup
             if(powerupTimer <= 0)
             {
+                // Get a random position in the level
                 Vector3 position = LevelManager.GetRandomMatrixPosition();
+                // If the random position is not occupied by another object, continue
                 if (LevelManager.SearchLevelTile(position) == null)
                 {
+                    // Choose a random powerup from powerupList
                     int randomObjectIndex = Random.Range(0, powerupList.Count);
+                    // Do not spawn a new powerup if there are already 4 powerups in the level
                     if (powerupCounter < 4)
                     {
+                        // Spawn the powerup and add 1 to the powerupCounter to keep track of them
                         LevelManager.SpawnObject(powerupList[randomObjectIndex], position);
                         powerupCounter++;
                     }
                 }
+                // Choose a new random timer until the next spawning attempt
                 powerupTimer = Random.Range(2f, 5f);
             }
-
+            
             powerupTimer -= Time.deltaTime;
         }
 

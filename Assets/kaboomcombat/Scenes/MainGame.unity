@@ -5794,16 +5794,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 180
+  bombPowerMax: 8
+  powerupTimer: 0
+  powerupCounter: 0
   objectList:
   - {fileID: 4453187591469389809, guid: 2a5c87d7c694e50488cb117c6d319390, type: 3}
   - {fileID: 1536540077909128048, guid: 633a94eddfe1ce64c813c1983bedca7a, type: 3}
   - {fileID: 8963420478125875996, guid: 577b2bbf123601342b99b8e0651c4ea6, type: 3}
+  powerupList:
+  - {fileID: 3413139189518199275, guid: 1e93c0b22e11c6044bdfb2347a87e517, type: 3}
   playerSpawns:
   - {fileID: 1362681339}
   - {fileID: 470240461}
   - {fileID: 316344771}
   - {fileID: 558999965}
   playerList: []
+  hudController: {fileID: 0}
 --- !u!114 &1488010283
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 // SessionManager class
-// =====================================================================================================================
+// ====================================================================================================================
 // Handles the parameters and logic of the main game (Ex. time, players alive, spawning players, changing game state etc.)
 
 
@@ -16,8 +16,13 @@ namespace kaboomcombat
         public float time = 180;
         public int bombPowerMax = 8;
 
+        public float powerupTimer = 0f;
+        public int powerupCounter = 0;
+
         // List containing every object that is placed in the levelMatrix
         public List<GameObject> objectList = new List<GameObject>();
+        // List containing every powerup object
+        public List<GameObject> powerupList = new List<GameObject>();
         // Array containing each player's spawnpoint
         public Transform[] playerSpawns = new Transform[4];
         // List which is used to store and keep track of players currently in the game
@@ -47,14 +52,20 @@ namespace kaboomcombat
 
         private void FixedUpdate()
         {
-            // Update the time every frame, unless the time is 0
-            if(Mathf.FloorToInt(time) > 0)
+            if (DataManager.gameState == GameState.PLAYING)
             {
-                UpdateTime();
-            }
-            else{
-                // Call GameOver with a timeOut value of true to indicate that the time has run out
-                GameOver(true);
+                // Update the time every frame, unless the time is 0
+                if (Mathf.FloorToInt(time) > 0)
+                {
+                    UpdateTime();
+                }
+                else
+                {
+                    // Call GameOver with a timeOut value of true to indicate that the time has run out
+                    GameOver(true);
+                }
+                
+                UpdatePowerUpTimer();
             }
         }
 
@@ -75,8 +86,6 @@ namespace kaboomcombat
             DataManager.gameState = GameState.PLAYING;
             hudController.panelHud.SetActive(true);
             hudController.OpenHud();
-
-            // Invoke the bombPower increment function at the start of the game
         }
 
 
@@ -84,11 +93,17 @@ namespace kaboomcombat
         private void GameOver(bool timeOut)
         {
             DataManager.gameState = GameState.GAMEOVER;
-
-            hudController.CloseHud();
-
-            cameraController.MoveTo(playerList[0].transform.position, 1f);
-            cameraController.ZoomTo(10f, 1f);
+            
+            if (!timeOut)
+            {
+                hudController.CloseHud();
+                cameraController.MoveTo(playerList[0].transform.position, 1f);
+                cameraController.ZoomTo(10f, 1f);
+            }
+            else
+            {
+                // TODO
+            }
         }
 
 
@@ -155,16 +170,44 @@ namespace kaboomcombat
         }
 
 
+        // Function to handle powerup spawning, which works on a timer
+        private void UpdatePowerUpTimer()
+        {
+            // If the timer reaches 0, try spawning a powerup
+            if(powerupTimer <= 0)
+            {
+                // Get a random position in the level
+                Vector3 position = LevelManager.GetRandomMatrixPosition();
+                // If the random position is not occupied by another object, continue
+                if (LevelManager.SearchLevelTile(position) == null)
+                {
+                    // Choose a random powerup from powerupList
+                    int randomObjectIndex = Random.Range(0, powerupList.Count);
+                    // Do not spawn a new powerup if there are already 4 powerups in the level
+                    if (powerupCounter < 4)
+                    {
+                        // Spawn the powerup and add 1 to the powerupCounter to keep track of them
+                        LevelManager.SpawnObject(powerupList[randomObjectIndex], position);
+                        powerupCounter++;
+                    }
+                }
+                // Choose a new random timer until the next spawning attempt
+                powerupTimer = Random.Range(2f, 5f);
+            }
+            
+            powerupTimer -= Time.deltaTime;
+        }
+
+
         // Update the time
         private void UpdateTime()
         {
-            if(DataManager.gameState == GameState.PLAYING)
-            {
-                time -= Time.deltaTime;
+            
+            time -= Time.deltaTime;
 
-                // Update the timer hud element
-                hudController.UpdateTimer(time);
-            }
+            // Update the timer hud element
+            hudController.UpdateTimer(time);
+            
         }
     }
 }

@@ -14,7 +14,6 @@ namespace kaboomcombat
         public int id;
         public int kills = 0;
         public int bombPower = 2;
-        public float bombPowerFloat = 0f;
 
         // Input parameters, used to determine what device and controlScheme each player is using
         public InputDevice inputDevice;

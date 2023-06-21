@@ -1,5 +1,5 @@
 // Explosion class
-// =====================================================================================================================
+// ====================================================================================================================
 // Mini-class that handles explosion objects and what happens when they hit certain other objects
 
 
@@ -45,13 +45,6 @@ namespace kaboomcombat
                 else if (!other.gameObject.CompareTag("Indestructible"))
                 {
                     LevelManager.DestroyObject(other.gameObject);
-                    ownerPlayer.bombPowerFloat += 0.2f;
-                }
-
-                if(ownerPlayer.bombPowerFloat >= 1)
-                {
-                    ownerPlayer.IncrementBombPower();
-                    ownerPlayer.bombPowerFloat = 0;
                 }
             }
         }

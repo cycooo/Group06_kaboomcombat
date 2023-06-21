@@ -44,6 +44,8 @@ namespace kaboomcombat
         // Bomb icon to put next to selected button
         public Image imageSelector;
 
+        private MenuActionAsset inputAsset;
+
 
         private void Awake()
         {
@@ -51,6 +53,9 @@ namespace kaboomcombat
             menuController = GetComponent<MenuController>();
             playerInputManager = GetComponent<PlayerInputManager>();
             playerManager = FindObjectOfType<PlayerManager>();
+
+            // Create a new input asset
+            inputAsset = new MenuActionAsset();
 
             // Call UpdateMenu to place UI elements accordingly
             UpdateMenu();
@@ -60,12 +65,22 @@ namespace kaboomcombat
         // This is so that players can't join the lobby when on another submenu
         private void OnEnable()
         {
+            // Assign action
+            inputAsset.Menu.Cancel.performed += QuitGame;
+            inputAsset.Enable();
             playerInputManager.EnableJoining();
         }
 
         private void OnDisable()
         {
+            inputAsset.Menu.Cancel.performed -= QuitGame;
+            inputAsset.Disable();
             playerInputManager.DisableJoining();
+        }
+
+        private void QuitGame(InputAction.CallbackContext obj)
+        {
+            menuController.QuitGame();
         }
 
 

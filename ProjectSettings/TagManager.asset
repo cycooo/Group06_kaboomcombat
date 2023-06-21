@@ -8,6 +8,7 @@ TagManager:
   - Indestructible
   - Explosion
   - Bomb
+  - Powerup
   layers:
   - Default
   - TransparentFX

@@ -32,6 +32,7 @@ namespace kaboomcombat
         private PlayerInputManager playerInputManager;
         public HudController hudController;
         private CameraController cameraController;
+        public MusicPlayer musicPlayer;
 
 
         void Awake()
@@ -40,6 +41,7 @@ namespace kaboomcombat
             hudController = GetComponent<HudController>();
             playerInputManager = GetComponent<PlayerInputManager>();
             cameraController = FindObjectOfType<CameraController>();
+            musicPlayer = FindObjectOfType<MusicPlayer>();
 
             // Add one second to the time because it skips the first second when displayed in game
             time++;
@@ -86,6 +88,8 @@ namespace kaboomcombat
             DataManager.gameState = GameState.PLAYING;
             hudController.panelHud.SetActive(true);
             hudController.OpenHud();
+
+            musicPlayer.PlayMusic();
         }
 
 
@@ -104,6 +108,8 @@ namespace kaboomcombat
             {
                 // TODO
             }
+
+            musicPlayer.StopMusic();
         }
 
 

@@ -20,6 +20,7 @@ namespace kaboomcombat
         private OptionsMenu optionsMenu;
 
         private PlayerPortraitManager playerPortraitManager;
+        public SoundSystem soundSystem;
 
         // Parameters used for the transition between two submenus
         private bool animationFinished = true;
@@ -53,6 +54,7 @@ namespace kaboomcombat
             optionsMenu = GetComponent<OptionsMenu>();
 
             playerPortraitManager = GetComponent<PlayerPortraitManager>();
+            soundSystem = FindObjectOfType<SoundSystem>();
 
             eventSystem = FindObjectOfType<EventSystem>();
 
@@ -72,6 +74,7 @@ namespace kaboomcombat
         {
             if (DataManager.playerListStatic.Count >= 2)
             {
+                soundSystem.PlaySound(Sounds.UI_SELECT);
                 SceneManager.LoadScene("MainGame");
             }
         }
@@ -80,6 +83,8 @@ namespace kaboomcombat
         // Function that forcefully loads the MainGame scene (for debugging)
         public void StartGameForced()
         {
+            soundSystem.PlaySound(Sounds.UI_SELECT);
+
             mainMenu.playerInputManager.JoinPlayer();
             mainMenu.playerInputManager.JoinPlayer();
             mainMenu.playerInputManager.JoinPlayer();
@@ -90,6 +95,7 @@ namespace kaboomcombat
 
         public void QuitGame()
         {
+            soundSystem.PlaySound(Sounds.UI_CANCEL);
             Application.Quit();
         }
 

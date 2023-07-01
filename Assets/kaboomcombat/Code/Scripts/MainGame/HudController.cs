@@ -91,8 +91,6 @@ namespace kaboomcombat
             {
                 panelPlayerHudArray[i].GetComponent<PanelPlayerHud>().playerId = i;
                 panelPlayerHudArray[i].SetActive(true);
-
-                Debug.Log("[HudController][InitializeHud] panelPlayerHud[" + i + "] initialized");
             }
 
             UpdatePlayerPanels();

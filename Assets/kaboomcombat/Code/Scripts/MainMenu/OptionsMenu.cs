@@ -45,7 +45,6 @@ namespace kaboomcombat
         private void SwitchToMainMenu(InputAction.CallbackContext obj)
         {
             menuController.SwitchMenu(MenuState.MAIN);
-            menuController.soundSystem.PlaySound(Sounds.UI_CANCEL);
         }
     }
 }

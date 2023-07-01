@@ -109,7 +109,6 @@ namespace kaboomcombat
         public void SwitchToTutorial()
         {
             menuController.SwitchMenu(MenuState.TUTORIAL);
-            menuController.soundSystem.PlaySound(Sounds.UI_SELECT);
         }
 
 
@@ -117,7 +116,6 @@ namespace kaboomcombat
         public void SwitchToOptions()
         {
             menuController.SwitchMenu(MenuState.OPTIONS);
-            menuController.soundSystem.PlaySound(Sounds.UI_SELECT);
         }
 
 

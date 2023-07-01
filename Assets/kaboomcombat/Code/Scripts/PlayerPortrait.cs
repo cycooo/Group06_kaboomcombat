@@ -28,7 +28,6 @@ namespace kaboomcombat
             // Get reference to playermanager;
             playerManager = FindObjectOfType<PlayerManager>();
 
-            Debug.Log("[PlayerPortrait][Start] playerId=" + playerId);
             UpdatePortrait();
 
             /*

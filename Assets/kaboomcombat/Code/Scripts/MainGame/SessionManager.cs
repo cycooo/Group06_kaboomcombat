@@ -32,7 +32,6 @@ namespace kaboomcombat
         private PlayerInputManager playerInputManager;
         public HudController hudController;
         private CameraController cameraController;
-        public MusicPlayer musicPlayer;
 
 
         void Awake()
@@ -41,11 +40,15 @@ namespace kaboomcombat
             hudController = GetComponent<HudController>();
             playerInputManager = GetComponent<PlayerInputManager>();
             cameraController = FindObjectOfType<CameraController>();
-            musicPlayer = FindObjectOfType<MusicPlayer>();
 
             // Add one second to the time because it skips the first second when displayed in game
             time++;
 
+            
+        }
+
+        private void Start()
+        {
             // Start the session(Not Game!) and spawn the players
             StartSession();
             SpawnPlayers();
@@ -77,6 +80,10 @@ namespace kaboomcombat
         {
             // Set the gamestate to waiting to the players can't move yet
             DataManager.gameState = GameState.WAITING;
+
+            // Stop any music track that may be playing
+            SoundSystem.instance.StopMusic();
+
             // Start the Countdown animation
             StartCoroutine(hudController.StartHudCountdown());
         }
@@ -89,7 +96,7 @@ namespace kaboomcombat
             hudController.panelHud.SetActive(true);
             hudController.OpenHud();
 
-            musicPlayer.PlayMusic();
+            SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION);
         }
 
 
@@ -108,8 +115,6 @@ namespace kaboomcombat
             {
                 // TODO
             }
-
-            musicPlayer.StopMusic();
         }
 
 

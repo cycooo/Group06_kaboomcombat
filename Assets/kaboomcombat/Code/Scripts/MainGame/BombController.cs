@@ -55,6 +55,9 @@ namespace kaboomcombat
         // Function that handles the bomb's explosion
         public void Explode()
         {
+            // Play explosion sound
+            SoundSystem.instance.PlaySound(Sounds.EXPLOSION_1);
+
             // Store the current position for easier access
             Vector3 currentPos = transform.position;
 

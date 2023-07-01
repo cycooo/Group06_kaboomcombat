@@ -36,7 +36,7 @@ namespace kaboomcombat
         public GameObject[] panelPlayerHudArray = new GameObject[4];
 
 
-        void Awake()
+        private void Awake()
         {
             // Assign the sessionManager
             sessionManager = FindObjectOfType<SessionManager>();
@@ -46,7 +46,7 @@ namespace kaboomcombat
             DisablePlayerPanels();
             panelHud.SetActive(false);
             // Initialize the hud after a small delay to give the player info panels time to get the information they need
-            Invoke("InitializeHud", 0.5f);
+            Invoke("InitializeHud", 1f);
 
             // If the hud is set to be closed on start, set the panel's positions appropriately
             if(!open)
@@ -91,6 +91,8 @@ namespace kaboomcombat
             {
                 panelPlayerHudArray[i].GetComponent<PanelPlayerHud>().playerId = i;
                 panelPlayerHudArray[i].SetActive(true);
+
+                Debug.Log("[HudController][InitializeHud] panelPlayerHud[" + i + "] initialized");
             }
 
             UpdatePlayerPanels();

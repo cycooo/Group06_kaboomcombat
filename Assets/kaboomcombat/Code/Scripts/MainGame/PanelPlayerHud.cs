@@ -30,10 +30,16 @@ namespace kaboomcombat
         public TextMeshProUGUI textKills;
 
 
-        private void Start()
+        private void Awake()
         {
             // Assign the player portrait class's playerId, since it is a child of this object
-            GetComponentInChildren<PlayerPortrait>().playerId = playerId;
+            PlayerPortrait playerPortrait = GetComponentInChildren<PlayerPortrait>();
+
+            Debug.Log("[PanelPlayerHud][Start] playerPortrait=" + playerPortrait);
+            Debug.Log("[PanelPlayerHud][Start] playerId=" + playerId);
+
+            playerPortrait.playerId = playerId;
+
             CheckReferences();
         }
 
@@ -49,6 +55,8 @@ namespace kaboomcombat
             {
                 player = sessionManager.playerList[playerId].GetComponent<Player>();
             }
+
+            Debug.Log("[PanelPlayerHud][CheckReferences] sessionManager=" + sessionManager + ", player=" + player);
         }
 
         public void UpdatePanel()
@@ -57,6 +65,8 @@ namespace kaboomcombat
 
             textBombPower.SetText((player.bombPower).ToString());
             textKills.SetText((player.kills).ToString());
+
+            Debug.Log("[PanelPlayerHud][UpdatePanel] panelPlayerHud[" + playerId + "] updated");
         }
 
         

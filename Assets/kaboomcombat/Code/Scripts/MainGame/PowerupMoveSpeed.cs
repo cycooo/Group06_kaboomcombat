@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace kaboomcombat
 {
-    public class PowerupBombPower : MonoBehaviour
+    public class PowerupMoveSpeed : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<Player>().IncrementBombPower();
+                other.gameObject.GetComponent<Player>().SetPowerUpMoveSpeed();
                 Destroy(gameObject);
             }
         }

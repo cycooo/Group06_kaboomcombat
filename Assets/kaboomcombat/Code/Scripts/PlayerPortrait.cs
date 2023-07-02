@@ -28,7 +28,17 @@ namespace kaboomcombat
             // Get reference to playermanager;
             playerManager = FindObjectOfType<PlayerManager>();
 
+            UpdatePortrait();
+
+            /*
             // Set the color and portrait picture of the player
+            imagePlayerProfile.color = playerManager.playerColors[playerId];
+            imagePlayermodel.sprite = playerManager.playerPortraits[playerId];
+            */
+        }
+
+        public void UpdatePortrait()
+        {
             imagePlayerProfile.color = playerManager.playerColors[playerId];
             imagePlayermodel.sprite = playerManager.playerPortraits[playerId];
         }

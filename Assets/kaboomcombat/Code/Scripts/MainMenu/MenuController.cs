@@ -55,12 +55,18 @@ namespace kaboomcombat
             playerPortraitManager = GetComponent<PlayerPortraitManager>();
 
             eventSystem = FindObjectOfType<EventSystem>();
+        }
 
+        private void Start()
+        {
             // Assign the gamestate to MENU, since we're in the main menu
             DataManager.gameState = GameState.MENU;
-            
+
             // Set the gravity for the falling bombs in the background
             Physics.gravity = new Vector3(0f, -1f, 0f);
+
+            // Play menu music
+            SoundSystem.instance.PlayMusic(Music.JAZZ_CALM);
 
             AssignSpawnLimits();
             SpawnBackgroundObject();
@@ -80,11 +86,12 @@ namespace kaboomcombat
         // Function that forcefully loads the MainGame scene (for debugging)
         public void StartGameForced()
         {
+
             mainMenu.playerInputManager.JoinPlayer();
             mainMenu.playerInputManager.JoinPlayer();
             mainMenu.playerInputManager.JoinPlayer();
             mainMenu.playerInputManager.JoinPlayer();
-            SceneManager.LoadScene("MainGame");
+            //SceneManager.LoadScene("MainGame");
         }
 
 

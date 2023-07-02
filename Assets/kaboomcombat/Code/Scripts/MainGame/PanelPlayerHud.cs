@@ -30,10 +30,13 @@ namespace kaboomcombat
         public TextMeshProUGUI textKills;
 
 
-        private void Start()
+        private void Awake()
         {
             // Assign the player portrait class's playerId, since it is a child of this object
-            GetComponentInChildren<PlayerPortrait>().playerId = playerId;
+            PlayerPortrait playerPortrait = GetComponentInChildren<PlayerPortrait>();
+
+            playerPortrait.playerId = playerId;
+
             CheckReferences();
         }
 

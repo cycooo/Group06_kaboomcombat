@@ -44,6 +44,11 @@ namespace kaboomcombat
             // Add one second to the time because it skips the first second when displayed in game
             time++;
 
+            
+        }
+
+        private void Start()
+        {
             // Start the session(Not Game!) and spawn the players
             StartSession();
             SpawnPlayers();
@@ -75,6 +80,10 @@ namespace kaboomcombat
         {
             // Set the gamestate to waiting to the players can't move yet
             DataManager.gameState = GameState.WAITING;
+
+            // Stop any music track that may be playing
+            SoundSystem.instance.StopMusic();
+
             // Start the Countdown animation
             StartCoroutine(hudController.StartHudCountdown());
         }
@@ -86,6 +95,8 @@ namespace kaboomcombat
             DataManager.gameState = GameState.PLAYING;
             hudController.panelHud.SetActive(true);
             hudController.OpenHud();
+
+            SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION);
         }
 
 

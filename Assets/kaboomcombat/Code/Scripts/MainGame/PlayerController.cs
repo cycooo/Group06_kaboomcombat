@@ -5,6 +5,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,20 +33,31 @@ namespace kaboomcombat
         private bool isMoving = false;
 
 
-        void Awake()
+        private void Start()
         {
             // Get references to sessionManager and objectList
             player = GetComponent<Player>();
             sessionManager = player.sessionManager;
             objectList = sessionManager.objectList;
+        }
 
+        private void Awake()
+        {
             // Get references to inputAsset and the "Player" action map
             inputAsset = GetComponent<PlayerInput>().actions;
             playerActionMap = inputAsset.FindActionMap("Player");
         }
 
+        private void OnDestroy()
+        {
+            // Remove the player from the sessionManager playerList when it is destroyed
+            sessionManager.playerList.Remove(gameObject);
+            sessionManager.CheckGameOver();
+            player.panelPlayerHud.ShowDeath();
+        }
 
-       private void OnEnable()
+
+        private void OnEnable()
        {
             // InputSystem components have to be enabled and disabled according to the object they are attached to.
 
@@ -64,15 +76,6 @@ namespace kaboomcombat
             playerActionMap.FindAction("PlaceBomb").started -= PlaceBomb;
             // Disable the Player Action Map
             playerActionMap.Disable();
-        }
-
-
-        private void OnDestroy()
-        {
-            // Remove the player from the sessionManager playerList when it is destroyed
-            sessionManager.playerList.Remove(gameObject);
-            sessionManager.CheckGameOver();
-            player.panelPlayerHud.ShowDeath();
         }
 
 
@@ -159,6 +162,7 @@ namespace kaboomcombat
             // Player is no longer moving
             isMoving = false;
         }
+
 
         // Function is called by the Input Event "PlaceBomb"
         private void PlaceBomb(InputAction.CallbackContext obj)

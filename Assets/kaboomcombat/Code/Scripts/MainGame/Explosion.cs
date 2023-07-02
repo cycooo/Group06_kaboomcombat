@@ -38,7 +38,7 @@ namespace kaboomcombat
                     ownerPlayer.IncrementKills();
                     ownerPlayer.IncrementBombPower();
 
-                    LevelManager.DestroyObject(other.gameObject);
+                    other.gameObject.GetComponent<Player>().Kill();
                 }
                 // If the object is not indestructible, destroy it
                 // This way, anything caught in the bomb's explosion is destroyed (Players, powerups, brick walls etc.)

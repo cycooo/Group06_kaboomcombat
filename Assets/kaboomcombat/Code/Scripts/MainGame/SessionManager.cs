@@ -14,10 +14,12 @@ namespace kaboomcombat
     {
         // Game parameters
         public float time = 180;
-        public int bombPowerMax = 8;
+        public int bombPowerMax = 9;
 
+        // Powerup parameters
         public float powerupTimer = 0f;
         public int powerupCounter = 0;
+        public int powerupMax = 3;
 
         // List containing every object that is placed in the levelMatrix
         public List<GameObject> objectList = new List<GameObject>();
@@ -43,8 +45,6 @@ namespace kaboomcombat
 
             // Add one second to the time because it skips the first second when displayed in game
             time++;
-
-            
         }
 
         private void Start()
@@ -105,6 +105,11 @@ namespace kaboomcombat
         {
             DataManager.gameState = GameState.GAMEOVER;
             
+            foreach(GameObject player in playerList)
+            {
+                player.GetComponent<Player>().god = true;
+            }
+
             if (!timeOut)
             {
                 hudController.CloseHud();
@@ -195,7 +200,7 @@ namespace kaboomcombat
                     // Choose a random powerup from powerupList
                     int randomObjectIndex = Random.Range(0, powerupList.Count);
                     // Do not spawn a new powerup if there are already 4 powerups in the level
-                    if (powerupCounter < 4)
+                    if (powerupCounter < powerupMax)
                     {
                         // Spawn the powerup and add 1 to the powerupCounter to keep track of them
                         LevelManager.SpawnObject(powerupList[randomObjectIndex], position);

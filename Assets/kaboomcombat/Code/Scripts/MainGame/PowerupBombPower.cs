@@ -9,7 +9,6 @@ namespace kaboomcombat
             if (other.gameObject.CompareTag("Player"))
             {
                 other.gameObject.GetComponent<Player>().IncrementBombPower();
-                Destroy(gameObject);
             }
         }
     }

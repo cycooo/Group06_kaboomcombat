@@ -1,15 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 namespace kaboomcombat
 {
     public class PowerupMoveSpeed : MonoBehaviour
     {
+        private Player player;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<Player>().SetPowerUpMoveSpeed();
-                Destroy(gameObject);
+                player = other.gameObject.GetComponent<Player>();
+                player.SetPowerupMoveSpeed(1.2f, 10f);
             }
         }
     }

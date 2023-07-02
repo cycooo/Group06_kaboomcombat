@@ -164,27 +164,6 @@ namespace kaboomcombat
         }
 
 
-        // Coroutine that changes the moveTime for a set duration, after which it is set back again
-        public IEnumerator SetMoveTimeForSeconds(float time, float duration)
-        {
-            if(!player.fast)
-            {
-                player.fast = true;
-
-                float moveTimeOrig = moveTime;
-                moveTime = time;
-                GameObject effectMoveSpeedInstance = Instantiate(player.effectMoveSpeed, gameObject.transform);
-
-                yield return new WaitForSeconds(duration);
-
-                moveTime = moveTimeOrig;
-                Destroy(effectMoveSpeedInstance);
-
-                player.fast = false;
-            }
-        }
-
-
         // Function is called by the Input Event "PlaceBomb"
         private void PlaceBomb(InputAction.CallbackContext obj)
         {

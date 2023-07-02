@@ -59,24 +59,21 @@ namespace kaboomcombat
         }
 
 
-        // Wrapper function to activate the god powerup
-        public void SetPowerUpGod()
+        public void SetPowerupGod(float duration)
         {
             StartCoroutine(SetGodForSeconds(10f));
         }
 
 
-        // Wrapper function to actibvate the movespeed powerup
-        public void SetPowerUpMoveSpeed()
+        public void SetPowerupMoveSpeed(float moveTime, float duration)
         {
-            StartCoroutine(playerController.SetMoveTimeForSeconds(0.12f, 10f));
+            StartCoroutine(SetMoveTimeForSeconds(0.12f, 10f));
         }
 
 
-        // Coroutine to activate the god powerup and disable it after duration
         public IEnumerator SetGodForSeconds(float duration)
         {
-            if(!god)
+            if (!god)
             {
                 god = true;
                 GameObject effectGodInstance = Instantiate(effectGod, gameObject.transform);
@@ -85,6 +82,25 @@ namespace kaboomcombat
 
                 god = false;
                 Destroy(effectGodInstance);
+            }
+        }
+
+        public IEnumerator SetMoveTimeForSeconds(float moveTime, float duration)
+        {
+            if (!fast)
+            {
+                fast = true;
+
+                float moveTimeOrig = playerController.moveTime;
+                playerController.moveTime = moveTime;
+                GameObject effectMoveSpeedInstance = Instantiate(effectMoveSpeed, gameObject.transform);
+
+                yield return new WaitForSeconds(duration);
+
+                playerController.moveTime = moveTimeOrig;
+                Destroy(effectMoveSpeedInstance);
+
+                fast = false;
             }
         }
 

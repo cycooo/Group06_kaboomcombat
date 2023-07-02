@@ -1,15 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 namespace kaboomcombat
 {
     public class PowerupGod : MonoBehaviour
     {
+        private Player player;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<Player>().SetPowerUpGod();
-                Destroy(gameObject);
+                player = other.gameObject.GetComponent<Player>();
+                player.SetPowerupGod(10f);
             }
         }
     }

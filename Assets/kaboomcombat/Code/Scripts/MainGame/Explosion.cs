@@ -35,10 +35,15 @@ namespace kaboomcombat
                 }
                 else if(other.gameObject.CompareTag("Player"))
                 {
-                    ownerPlayer.IncrementKills();
-                    ownerPlayer.IncrementBombPower();
-
-                    other.gameObject.GetComponent<Player>().Kill();
+                    if(!other.gameObject.GetComponent<Player>().god)
+                    {
+                        other.gameObject.GetComponent<Player>().Kill();
+                        if(other.gameObject != ownerPlayer.gameObject)
+                        {
+                            ownerPlayer.IncrementKills();
+                            ownerPlayer.IncrementBombPower();
+                        }
+                    }
                 }
                 // If the object is not indestructible, destroy it
                 // This way, anything caught in the bomb's explosion is destroyed (Players, powerups, brick walls etc.)

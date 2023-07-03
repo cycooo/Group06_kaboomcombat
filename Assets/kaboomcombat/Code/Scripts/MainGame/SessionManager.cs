@@ -49,6 +49,8 @@ namespace kaboomcombat
 
         private void Start()
         {
+            Physics.gravity = new Vector3(0f, -9.8f, 0f);
+
             // Start the session(Not Game!) and spawn the players
             StartSession();
             SpawnPlayers();

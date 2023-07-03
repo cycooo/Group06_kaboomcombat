@@ -3913,8 +3913,8 @@ MonoBehaviour:
   musicSource: {fileID: 936175161}
   soundSource: {fileID: 1953203770}
   musicList:
-  - {fileID: 8300000, guid: 1bb900b1b4e28764db49592c83799454, type: 3}
-  - {fileID: 8300000, guid: 51725157172fbc841b7049094bcb3952, type: 3}
+  - {fileID: 8300000, guid: 298d26a4cca8235438eb2e6d783c60ff, type: 3}
+  - {fileID: 8300000, guid: cd280363e9e12744089d55686bff4c0f, type: 3}
   soundList:
   - {fileID: 8300000, guid: 15d00c27454c5b64daafecf9314b7baa, type: 3}
   - {fileID: 8300000, guid: ef178c81c9481ca41a18e180ed03a6f6, type: 3}

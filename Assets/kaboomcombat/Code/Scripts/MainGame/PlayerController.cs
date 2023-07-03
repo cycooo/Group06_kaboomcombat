@@ -5,7 +5,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -48,14 +47,6 @@ namespace kaboomcombat
             playerActionMap = inputAsset.FindActionMap("Player");
         }
 
-        private void OnDestroy()
-        {
-            // Remove the player from the sessionManager playerList when it is destroyed
-            sessionManager.playerList.Remove(gameObject);
-            sessionManager.CheckGameOver();
-            player.panelPlayerHud.ShowDeath();
-        }
-
 
         private void OnEnable()
        {
@@ -76,6 +67,17 @@ namespace kaboomcombat
             playerActionMap.FindAction("PlaceBomb").started -= PlaceBomb;
             // Disable the Player Action Map
             playerActionMap.Disable();
+        }
+
+
+        private void OnDestroy()
+        {
+            // Remove the player from the sessionManager playerList when it is destroyed
+            sessionManager.playerList.Remove(gameObject);
+            sessionManager.CheckGameOver();
+            player.panelPlayerHud.ShowDeath();
+
+            
         }
 
 

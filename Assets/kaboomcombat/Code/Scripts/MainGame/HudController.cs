@@ -150,7 +150,7 @@ namespace kaboomcombat
             // Wait for 1 second
             yield return new WaitForSeconds(1);
 
-            cameraController.ZoomTo(28, 3f);
+            cameraController.ZoomTo(30, 3f);
 
             // Set the countdown panel to active
             panelCountdown.SetActive(true);

@@ -29,6 +29,9 @@ namespace kaboomcombat
         public GameObject effectMoveSpeed;
         public GameObject effectGod;
 
+        // Ragdoll prefab
+        public GameObject playerRagdoll;
+
         // Reference to the playerModelContainer which is used as a parent when instantiating the playermodel.
         public GameObject playerModelContainer;
 

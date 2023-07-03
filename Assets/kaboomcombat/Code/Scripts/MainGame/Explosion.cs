@@ -33,7 +33,7 @@ namespace kaboomcombat
                 {
                     other.gameObject.GetComponent<BombController>().Explode();
                 }
-                else if(other.gameObject.CompareTag("Player"))
+                else if(other.gameObject.CompareTag("Player") && !other.gameObject.GetComponent<Player>().god)
                 {
                     ownerPlayer.IncrementKills();
                     ownerPlayer.IncrementBombPower();

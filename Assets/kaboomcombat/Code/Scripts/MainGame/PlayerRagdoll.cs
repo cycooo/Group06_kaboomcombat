@@ -11,8 +11,6 @@ namespace kaboomcombat
         {
             rb = GetComponent<Rigidbody>();
 
-            Debug.Log(Physics.gravity);
-
             float xForce = Random.Range(-400f, 400f);
             float zForce = Random.Range(-400f, 400f);
 

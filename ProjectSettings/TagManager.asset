@@ -8,6 +8,7 @@ TagManager:
   - Indestructible
   - Explosion
   - Bomb
+  - Powerup
   layers:
   - Default
   - TransparentFX
@@ -19,6 +20,7 @@ TagManager:
   - Non Collider
   - 
   - 
+  - Post Processing
   - 
   - 
   - 
@@ -28,8 +30,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - PlayerPortrait
   - 
   - 
   - 

@@ -1,5 +1,6 @@
-// LevelManager class
-// =====================================================================================================================
+// LevelManager Class
+// ====================================================================================================================
+// Handles everything to do with the level itself, ex. level generation, randomness, adding/removing objects etc.
 
 
 using System.Collections.Generic;
@@ -13,13 +14,11 @@ namespace kaboomcombat
         // Level variables
         private int levelWidth = 13;
         private int levelHeight = 11;
-        private int randomness = 7;
+        private int randomness = 0;
 
         // References
         private SessionManager sessionManager;
-
         public static GameObject[,] levelMatrix;
-
         private List<GameObject> objectList;
 
 
@@ -53,6 +52,14 @@ namespace kaboomcombat
             Vector3 matrixPosition = WorldToMatrixPosition(tilePosition);
 
             return (levelMatrix[(int)matrixPosition.x, (int)matrixPosition.z]);
+        }
+
+
+        public static Vector3 GetRandomMatrixPosition()
+        {
+            Vector3 randomPos = new Vector3(Random.Range(0, 13), 0f, Random.Range(0, 11));
+
+            return randomPos;
         }
 
 
@@ -100,8 +107,8 @@ namespace kaboomcombat
             {
                 Debug.LogError("[DestroyObject] Target object is null!");
             }
-
         }
+
 
         // Function that generates a random level layout, then calls buildLevel()
         private void GenerateLevel()

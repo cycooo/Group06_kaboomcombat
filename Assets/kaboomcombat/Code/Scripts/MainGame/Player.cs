@@ -57,7 +57,10 @@ namespace kaboomcombat
         {
             if(!god)
             {
+                GameObject playerRagdollInstance = Instantiate(playerRagdoll, transform.position, playerRagdoll.transform.rotation);
+                playerRagdollInstance.GetComponent<PlayerRagdoll>().AddPlayermodel(playerModel);
                 Destroy(gameObject);
+
             }
         }
 

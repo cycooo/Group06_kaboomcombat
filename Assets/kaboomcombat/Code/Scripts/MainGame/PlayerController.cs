@@ -77,8 +77,7 @@ namespace kaboomcombat
             sessionManager.CheckGameOver();
             player.panelPlayerHud.ShowDeath();
 
-            GameObject playerRagdollInstance = Instantiate(player.playerRagdoll, transform.position, player.playerRagdoll.transform.rotation);
-            playerRagdollInstance.GetComponent<PlayerRagdoll>().AddPlayermodel(player.playerModel);
+            
         }
 
 

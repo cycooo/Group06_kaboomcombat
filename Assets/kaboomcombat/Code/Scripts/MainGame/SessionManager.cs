@@ -37,6 +37,7 @@ namespace kaboomcombat
         // References
         private PlayerInputManager playerInputManager;
         public HudController hudController;
+        private LevelManager levelManager;
         private CameraController cameraController;
 
 
@@ -44,6 +45,7 @@ namespace kaboomcombat
         {
             // Assign references
             hudController = GetComponent<HudController>();
+            levelManager = GetComponent<LevelManager>();
             playerInputManager = GetComponent<PlayerInputManager>();
             cameraController = FindObjectOfType<CameraController>();
 
@@ -111,8 +113,8 @@ namespace kaboomcombat
             if (!timeOut)
             {
                 hudController.CloseHud();
-                cameraController.MoveTo(playerList[0].transform.position, 1f);
-                cameraController.ZoomTo(10f, 1f);
+                //cameraController.MoveTo(playerList[0].transform.position, 1f);
+                //cameraController.ZoomTo(10f, 1f);
             }
             else
             {
@@ -124,9 +126,9 @@ namespace kaboomcombat
         // Function that checks if the game is over (if only 1 player remains)
         public void CheckGameOver()
         {
-            if(playerList.Count == 1)
+            if(playerList.Count <= 1)
             {
-                GameOver(false);
+                //GameOver(false);
             }
         }
 
@@ -231,6 +233,7 @@ namespace kaboomcombat
                     suddenDeathMode = true;
 
                     StartCoroutine(hudController.ShowMessageSuddenDeath());
+                    StartCoroutine(levelManager.SpawnCrush());
                 }
             }
 

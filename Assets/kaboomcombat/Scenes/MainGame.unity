@@ -10480,7 +10480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1d71c6f5c520e4ca2717280bd05e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 150
+  time: 5
   bombPowerMax: 9
   fastMode: 0
   suddenDeathMode: 0
@@ -10491,6 +10491,7 @@ MonoBehaviour:
   - {fileID: 4453187591469389809, guid: 2a5c87d7c694e50488cb117c6d319390, type: 3}
   - {fileID: 1536540077909128048, guid: 633a94eddfe1ce64c813c1983bedca7a, type: 3}
   - {fileID: 8963420478125875996, guid: 577b2bbf123601342b99b8e0651c4ea6, type: 3}
+  - {fileID: 5119691685571743343, guid: 34e78ccfc0a90994b8e8a911ee704d97, type: 3}
   powerupList:
   - {fileID: 3413139189518199275, guid: 1e93c0b22e11c6044bdfb2347a87e517, type: 3}
   - {fileID: 6340136995722587771, guid: 99d5968db95a5db48b99200d850bfb51, type: 3}

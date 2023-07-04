@@ -8,7 +8,8 @@ namespace kaboomcombat
         UI_MOVE,
         SUDDEN_DEATH,
         BOMB_PLACE,
-        EXPLOSION_1
+        EXPLOSION_1,
+        THUD
     }
 
 }

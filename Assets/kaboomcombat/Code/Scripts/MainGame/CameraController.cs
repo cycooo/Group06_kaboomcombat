@@ -43,8 +43,16 @@ namespace kaboomcombat
             // Only move the camera if the game is active
             if(DataManager.gameState == GameState.PLAYING)
             {
-                Move();
-                Zoom();
+                if(sessionManager.playerList.Count == 1) 
+                {
+                    Vector3 newPosition = sessionManager.playerList[0].transform.position + offset;
+                    transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+                }
+                else
+                {
+                    Move();
+                    Zoom();
+                }
             }
         }
 

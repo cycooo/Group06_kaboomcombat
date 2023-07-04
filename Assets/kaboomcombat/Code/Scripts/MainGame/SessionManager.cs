@@ -13,8 +13,10 @@ namespace kaboomcombat
     public class SessionManager : MonoBehaviour
     {
         // Game parameters
-        public float time = 180;
+        public float time = 150;
         public int bombPowerMax = 9;
+
+        public bool fastMode = false;
 
         // Powerup parameters
         public float powerupTimer = 0f;
@@ -61,16 +63,8 @@ namespace kaboomcombat
         {
             if (DataManager.gameState == GameState.PLAYING)
             {
-                // Update the time every frame, unless the time is 0
-                if (Mathf.FloorToInt(time) > 0)
-                {
-                    UpdateTime();
-                }
-                else
-                {
-                    // Call GameOver with a timeOut value of true to indicate that the time has run out
-                    GameOver(true);
-                }
+                UpdateTime();
+                
                 
                 UpdatePowerUpTimer();
             }
@@ -220,8 +214,27 @@ namespace kaboomcombat
         // Update the time
         private void UpdateTime()
         {
-            
-            time -= Time.deltaTime;
+            // Update the time every frame, unless the time is 0
+            if (Mathf.FloorToInt(time) > 0)
+            {
+                    time -= Time.deltaTime;
+            }
+            else
+            {
+                // Set time to 0 in case it goes negative before we stop counting
+                time = 0f;
+                // Call GameOver with a timeOut value of true to indicate that the time has run out
+                GameOver(true);
+            }
+
+            if (Mathf.FloorToInt(time) == 60 && !fastMode)
+            {
+                fastMode = true;
+
+                StartCoroutine(hudController.ShowMessageHurryUp());
+                SoundSystem.instance.StopMusic();
+                SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION_FAST);
+            }
 
             // Update the timer hud element
             hudController.UpdateTimer(time);

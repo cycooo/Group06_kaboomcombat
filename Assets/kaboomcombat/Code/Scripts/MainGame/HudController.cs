@@ -20,10 +20,19 @@ namespace kaboomcombat
         private CameraController cameraController;
         public TextMeshProUGUI textTimer;
 
+        // Hud
         public GameObject panelHud;
+
+        // Countdown
         public GameObject panelCountdown;
         public RectTransform panelNumber;
         public RectTransform panelGo;
+
+        // Messages
+        public GameObject panelMessage;
+        public RectTransform panelHurryUp;
+        public RectTransform panelSuddenDeath;
+
         public Image imageNumber;
 
         public Sprite[] numberSprites = new Sprite[3];
@@ -144,6 +153,59 @@ namespace kaboomcombat
         }
 
 
+        // Function to animate the hurry up message
+        public IEnumerator ShowMessageHurryUp()
+        {
+            // This is very messy, but there's no time so too bad
+            panelMessage.SetActive(true);
+            panelHurryUp.gameObject.SetActive(true);
+
+            panelHurryUp.position = new Vector3(900f, 0f, 0f);
+
+            LTDescr introTween;
+            LTDescr middleTween;
+            LTDescr outroTween;
+
+            introTween = LeanTween.move(panelHurryUp, new Vector3(30f, 0f, 0f), 0.5f);
+            introTween.setEaseInOutQuart();
+            introTween.setOnComplete( delegate() 
+            {
+                LTDescr scaleUpTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.15f);
+                scaleUpTween.setEaseInOutQuart();
+                scaleUpTween.setOnComplete( delegate()
+                {
+                    LTDescr scaleDownTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1f, 1f, 1f), 0.15f);
+                    scaleUpTween.setEaseInOutQuart();
+                    scaleDownTween.setOnComplete( delegate()
+                    {
+                        scaleUpTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.15f);
+                        scaleUpTween.setEaseInOutQuart();
+                        scaleUpTween.setOnComplete( delegate()
+                        {
+                            scaleDownTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1f, 1f, 1f), 0.15f);
+                            scaleUpTween.setEaseInOutQuart();
+                        });
+                    });
+                });
+                
+
+                middleTween = LeanTween.moveX(panelHurryUp, -30f, 1f);
+                middleTween.setOnComplete( delegate() 
+                {
+                    outroTween = LeanTween.moveX(panelHurryUp, -900f, 0.5f);
+                    outroTween.setEaseInOutQuart();
+                    outroTween.setOnComplete( delegate()
+                    {
+                        //panelHurryUp.gameObject.SetActive(false);
+                        //panelMessage.SetActive(false);
+                    });
+                });
+            });
+
+            yield return null;
+        }
+
+
         // Function that animates the start countdown
         public IEnumerator StartHudCountdown()
         {
@@ -236,7 +298,7 @@ namespace kaboomcombat
             panelNumber.gameObject.SetActive(false);
             panelGo.gameObject.SetActive(true);
 
-
+            
             // Go
             // Set initial parameters before animation
             LeanTween.alpha(panelGo, 0f, 0f);

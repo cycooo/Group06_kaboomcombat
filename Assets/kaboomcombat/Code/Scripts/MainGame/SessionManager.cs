@@ -13,7 +13,7 @@ namespace kaboomcombat
     public class SessionManager : MonoBehaviour
     {
         // Game parameters
-        public float time = 150;
+        public float time = 120;
         public int bombPowerMax = 9;
 
         public bool fastMode = false;

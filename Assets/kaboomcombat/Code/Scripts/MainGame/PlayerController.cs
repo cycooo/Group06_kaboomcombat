@@ -32,6 +32,9 @@ namespace kaboomcombat
         private bool isMoving = false;
 
 
+        private GameObject bombInstance;
+
+
         private void Start()
         {
             // Get references to sessionManager and objectList
@@ -171,10 +174,17 @@ namespace kaboomcombat
         {
             if(DataManager.gameState == GameState.PLAYING)
             {
+                if(!sessionManager.suddenDeathMode)
+                {
+                    if(bombInstance != null)
+                    {
+                        return;
+                    }
+                }
                 // Only place a bomb if a bomb is not already at the player's position
                 if (LevelManager.SearchLevelTile(transform.position) == null)
                 {
-                    GameObject bombInstance = LevelManager.SpawnObject(objectList[2], transform.position);
+                    bombInstance = LevelManager.SpawnObject(objectList[2], transform.position);
                     bombInstance.GetComponent<BombController>().ownerPlayer = player;
                     bombInstance.GetComponent<BombController>().bombPower = player.bombPower;
                 }

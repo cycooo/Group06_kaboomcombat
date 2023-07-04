@@ -70,6 +70,11 @@ namespace kaboomcombat
         // Function used to update the timer each frame
         public void UpdateTimer(float time)
         {
+            if(sessionManager.time == 0)
+            {
+                textTimer.color = new Color(255, 0, 0);
+            }
+
             // Calculate minutes and seconds from the total time float
             int minutes = Mathf.FloorToInt(time / 60);
             int seconds = Mathf.FloorToInt(time % 60);

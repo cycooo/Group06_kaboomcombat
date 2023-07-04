@@ -16,7 +16,9 @@ namespace kaboomcombat
         public float time = 120;
         public int bombPowerMax = 9;
 
+        // Game modes
         public bool fastMode = false;
+        public bool suddenDeathMode = false;
 
         // Powerup parameters
         public float powerupTimer = 0f;
@@ -223,8 +225,13 @@ namespace kaboomcombat
             {
                 // Set time to 0 in case it goes negative before we stop counting
                 time = 0f;
-                // Call GameOver with a timeOut value of true to indicate that the time has run out
-                GameOver(true);
+                
+                if(!suddenDeathMode)
+                {
+                    suddenDeathMode = true;
+
+                    StartCoroutine(hudController.ShowMessageSuddenDeath());
+                }
             }
 
             if (Mathf.FloorToInt(time) == 60 && !fastMode)

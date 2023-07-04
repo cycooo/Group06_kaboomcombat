@@ -196,13 +196,44 @@ namespace kaboomcombat
                     outroTween.setEaseInOutQuart();
                     outroTween.setOnComplete( delegate()
                     {
-                        //panelHurryUp.gameObject.SetActive(false);
-                        //panelMessage.SetActive(false);
+                        panelHurryUp.gameObject.SetActive(false);
+                        panelMessage.SetActive(false);
                     });
                 });
             });
 
             yield return null;
+        }
+
+
+        // Function to animate the sudden death message
+        public IEnumerator ShowMessageSuddenDeath()
+        {
+            panelMessage.SetActive(true);
+            panelSuddenDeath.gameObject.SetActive(true);
+
+            panelSuddenDeath.position = new Vector3(0f, -420f, 0f);
+            LeanTween.scale(panelSuddenDeath, new Vector3(0.4f, 0.4f, 0.4f), 0f);
+
+            LTDescr introTween;
+            LTDescr outroTween;
+
+            float duration = 0.7f;
+
+            LeanTween.scale(panelSuddenDeath, new Vector3(1f, 1f, 1f), duration).setEaseOutQuart();
+            introTween = LeanTween.move(panelSuddenDeath, new Vector3(0f, 0f, 0f), duration);
+            introTween.setEaseOutQuart();
+
+            yield return new WaitForSeconds(2.0f);
+
+            LeanTween.scale(panelSuddenDeath, new Vector3(0.4f, 0.4f, 0.4f), duration).setEaseInOutQuart();
+            outroTween = LeanTween.moveY(panelSuddenDeath, 420f, duration);
+            outroTween.setEaseInOutQuart();
+            outroTween.setOnComplete( delegate()
+            {
+                panelSuddenDeath.gameObject.SetActive(false);
+                panelMessage.SetActive(false);
+            });
         }
 
 

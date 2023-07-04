@@ -228,6 +228,10 @@ namespace kaboomcombat
             LeanTween.scale(panelSuddenDeath, new Vector3(1f, 1f, 1f), duration).setEaseOutQuart();
             introTween = LeanTween.move(panelSuddenDeath, new Vector3(0f, 0f, 0f), duration);
             introTween.setEaseOutQuart();
+            introTween.setOnComplete( delegate()
+            {
+                SoundSystem.instance.PlaySound(Sounds.SUDDEN_DEATH);
+            });
 
             yield return new WaitForSeconds(2.0f);
 

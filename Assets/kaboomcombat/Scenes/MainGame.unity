@@ -10480,7 +10480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1d71c6f5c520e4ca2717280bd05e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 120
+  time: 150
   bombPowerMax: 9
   fastMode: 0
   suddenDeathMode: 0

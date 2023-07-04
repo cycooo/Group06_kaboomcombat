@@ -6,6 +6,7 @@ namespace kaboomcombat
         UI_SELECT,
         UI_CANCEL,
         UI_MOVE,
+        SUDDEN_DEATH,
         BOMB_PLACE,
         EXPLOSION_1
     }

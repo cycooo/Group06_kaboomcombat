@@ -68,8 +68,6 @@ namespace kaboomcombat
             if (DataManager.gameState == GameState.PLAYING)
             {
                 UpdateTime();
-                
-                
                 UpdatePowerUpTimer();
             }
         }
@@ -113,8 +111,8 @@ namespace kaboomcombat
             if (!timeOut)
             {
                 hudController.CloseHud();
-                //cameraController.MoveTo(playerList[0].transform.position, 1f);
-                //cameraController.ZoomTo(10f, 1f);
+                cameraController.MoveTo(playerList[0].transform.position, 1f);
+                cameraController.ZoomTo(10f, 1f);
             }
             else
             {
@@ -128,7 +126,7 @@ namespace kaboomcombat
         {
             if(playerList.Count <= 1)
             {
-                //GameOver(false);
+                GameOver(false);
             }
         }
 

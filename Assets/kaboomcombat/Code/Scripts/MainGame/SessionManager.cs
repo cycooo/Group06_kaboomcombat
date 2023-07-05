@@ -230,6 +230,9 @@ namespace kaboomcombat
                 {
                     suddenDeathMode = true;
 
+                    SoundSystem.instance.StopMusic();
+                    SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION_2);
+
                     StartCoroutine(hudController.ShowMessageSuddenDeath());
                     StartCoroutine(levelManager.SpawnCrush());
                 }

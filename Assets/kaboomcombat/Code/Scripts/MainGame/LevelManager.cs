@@ -5,7 +5,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 
@@ -16,7 +15,7 @@ namespace kaboomcombat
         // Level variables
         private int levelWidth = 13;
         private int levelHeight = 11;
-        private int randomness = 0;
+        private int randomness = 7;
 
         // References
         private SessionManager sessionManager;

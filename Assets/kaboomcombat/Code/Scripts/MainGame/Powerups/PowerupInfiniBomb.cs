@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace kaboomcombat
 {
-    public class PowerupMoveSpeed : MonoBehaviour
+    public class PowerupInfiniBomb : MonoBehaviour
     {
         private Player player;
 
@@ -11,7 +11,7 @@ namespace kaboomcombat
             if (other.gameObject.CompareTag("Player"))
             {
                 player = other.gameObject.GetComponent<Player>();
-                player.SetPowerupMoveSpeed(1.2f, 10f);
+                player.SetPowerupInfiniBomb(10f);
             }
         }
     }

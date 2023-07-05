@@ -3,7 +3,6 @@
 // Main class of the main menu; handles interactions and animations between submenus, among others
 
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;

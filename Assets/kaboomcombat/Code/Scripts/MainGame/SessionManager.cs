@@ -111,8 +111,8 @@ namespace kaboomcombat
             if (!timeOut)
             {
                 hudController.CloseHud();
-                cameraController.MoveTo(playerList[0].transform.position, 1f);
-                cameraController.ZoomTo(10f, 1f);
+                cameraController.MoveTo(playerList[0].transform.position, 3f);
+                cameraController.ZoomTo(15f, 1f);
             }
             else
             {
@@ -229,6 +229,9 @@ namespace kaboomcombat
                 if(!suddenDeathMode)
                 {
                     suddenDeathMode = true;
+
+                    SoundSystem.instance.StopMusic();
+                    SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION_2);
 
                     StartCoroutine(hudController.ShowMessageSuddenDeath());
                     StartCoroutine(levelManager.SpawnCrush());

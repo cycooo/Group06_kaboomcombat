@@ -126,7 +126,7 @@ namespace kaboomcombat
         {
             if(playerList.Count <= 1)
             {
-                GameOver(false);
+                //GameOver(false);
             }
         }
 

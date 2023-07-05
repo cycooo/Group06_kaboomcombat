@@ -10480,7 +10480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d1d71c6f5c520e4ca2717280bd05e53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 150
+  time: 20
   bombPowerMax: 9
   fastMode: 0
   suddenDeathMode: 0
@@ -10496,6 +10496,7 @@ MonoBehaviour:
   - {fileID: 3413139189518199275, guid: 1e93c0b22e11c6044bdfb2347a87e517, type: 3}
   - {fileID: 6340136995722587771, guid: 99d5968db95a5db48b99200d850bfb51, type: 3}
   - {fileID: 3632456081714726975, guid: 37db7b4a7d2b6384681a10f026e74ab7, type: 3}
+  - {fileID: 1980505742870092981, guid: 932d535d6bdc95be6a22a551b7f61617, type: 3}
   playerSpawns:
   - {fileID: 1362681339}
   - {fileID: 470240461}

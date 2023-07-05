@@ -174,13 +174,23 @@ namespace kaboomcombat
         {
             if(DataManager.gameState == GameState.PLAYING)
             {
+                bool doReturn = false;
+
                 if(!sessionManager.suddenDeathMode)
                 {
                     if(bombInstance != null)
                     {
-                        return;
+                        doReturn = true;
                     }
                 }
+                
+                if(player.infiniBomb)
+                {
+                    doReturn = false;
+                }
+
+                if(doReturn) { return; }
+
                 // Only place a bomb if a bomb is not already at the player's position
                 if (LevelManager.SearchLevelTile(transform.position) == null)
                 {

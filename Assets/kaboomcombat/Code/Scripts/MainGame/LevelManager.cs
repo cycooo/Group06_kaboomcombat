@@ -3,7 +3,9 @@
 // Handles everything to do with the level itself, ex. level generation, randomness, adding/removing objects etc.
 
 
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 
@@ -29,7 +31,7 @@ namespace kaboomcombat
             objectList = sessionManager.objectList;
 
             // Run the function that generates the level
-            GenerateLevel(); 
+            GenerateLevel();
         }
 
 
@@ -169,6 +171,78 @@ namespace kaboomcombat
                     {
                         Instantiate(levelMatrix[j, i], new Vector3(j, 0f, i), levelMatrix[j, i].transform.rotation);
                     }
+                }
+            }
+        }
+
+
+        public IEnumerator SpawnCrush()
+        {
+            
+            yield return new WaitForSeconds(2f);
+            if (DataManager.gameState == GameState.PLAYING)
+            {
+                SpawnCrushLevel(0);
+            }
+            yield return new WaitForSeconds(5f);
+            if (DataManager.gameState == GameState.PLAYING)
+            {
+                SpawnCrushLevel(1);
+            }
+
+            yield return new WaitForSeconds(5f);
+            if (DataManager.gameState == GameState.PLAYING)
+            {
+                SpawnCrushLevel(2);
+            }
+
+            yield return new WaitForSeconds(5f);
+            if (DataManager.gameState == GameState.PLAYING)
+            {
+                SpawnCrushLevel(3);
+            }
+
+            yield return new WaitForSeconds(5f);
+            if (DataManager.gameState == GameState.PLAYING)
+            {
+                SpawnCrushLevel(4);
+            }
+
+            yield return new WaitForSeconds(5f);
+            if (DataManager.gameState == GameState.PLAYING)
+            {
+                SpawnCrushLevel(5);
+            }
+        }
+
+
+        private void SpawnCrushLevel(int level)
+        {
+            // Horizontal Bottom
+            for (int i = level; i < levelWidth - level; i++)
+            {
+                Instantiate(objectList[3], new Vector3(i, 0, level), objectList[3].transform.rotation);
+            }
+
+            // Level 5 is 1 tile tall, so only spawn the horizontal bottom, else spawn all parts
+            if(level < 5)
+            {
+                // Horizontal Top
+                for (int i = level; i < levelWidth - level; i++)
+                {
+                    Instantiate(objectList[3], new Vector3(i, 0, (levelHeight - 1) - level), objectList[3].transform.rotation);
+                }
+
+                // Vertical Left
+                for (int i = level + 1; i < (levelHeight - level) - 1; i++)
+                {
+                    Instantiate(objectList[3], new Vector3(level, 0, i), objectList[3].transform.rotation);
+                }
+
+                // Vertical Right
+                for (int i = level + 1; i < (levelHeight - level) - 1; i++)
+                {
+                    Instantiate(objectList[3], new Vector3((levelWidth - 1) - level, 0f, i), objectList[3].transform.rotation);
                 }
             }
         }

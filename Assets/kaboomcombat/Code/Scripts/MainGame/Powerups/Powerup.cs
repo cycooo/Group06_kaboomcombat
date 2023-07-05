@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace kaboomcombat
@@ -8,7 +6,11 @@ namespace kaboomcombat
     {
         private void OnTriggerEnter(Collider other)
         {
-            SoundSystem.instance.PlaySound(Sounds.UI_SELECT);
+            if(other.gameObject.CompareTag("Player"))
+            {
+                SoundSystem.instance.PlaySound(Sounds.UI_SELECT);
+            }
+
             Kill();
         }
 

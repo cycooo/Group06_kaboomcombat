@@ -13,8 +13,12 @@ namespace kaboomcombat
     public class SessionManager : MonoBehaviour
     {
         // Game parameters
-        public float time = 180;
+        public float time = 120;
         public int bombPowerMax = 9;
+
+        // Game modes
+        public bool fastMode = false;
+        public bool suddenDeathMode = false;
 
         // Powerup parameters
         public float powerupTimer = 0f;
@@ -33,6 +37,7 @@ namespace kaboomcombat
         // References
         private PlayerInputManager playerInputManager;
         public HudController hudController;
+        private LevelManager levelManager;
         private CameraController cameraController;
 
 
@@ -40,6 +45,7 @@ namespace kaboomcombat
         {
             // Assign references
             hudController = GetComponent<HudController>();
+            levelManager = GetComponent<LevelManager>();
             playerInputManager = GetComponent<PlayerInputManager>();
             cameraController = FindObjectOfType<CameraController>();
 
@@ -61,17 +67,7 @@ namespace kaboomcombat
         {
             if (DataManager.gameState == GameState.PLAYING)
             {
-                // Update the time every frame, unless the time is 0
-                if (Mathf.FloorToInt(time) > 0)
-                {
-                    UpdateTime();
-                }
-                else
-                {
-                    // Call GameOver with a timeOut value of true to indicate that the time has run out
-                    GameOver(true);
-                }
-                
+                UpdateTime();
                 UpdatePowerUpTimer();
             }
         }
@@ -128,7 +124,7 @@ namespace kaboomcombat
         // Function that checks if the game is over (if only 1 player remains)
         public void CheckGameOver()
         {
-            if(playerList.Count == 1)
+            if(playerList.Count <= 1)
             {
                 GameOver(false);
             }
@@ -220,8 +216,33 @@ namespace kaboomcombat
         // Update the time
         private void UpdateTime()
         {
-            
-            time -= Time.deltaTime;
+            // Update the time every frame, unless the time is 0
+            if (Mathf.FloorToInt(time) > 0)
+            {
+                    time -= Time.deltaTime;
+            }
+            else
+            {
+                // Set time to 0 in case it goes negative before we stop counting
+                time = 0f;
+                
+                if(!suddenDeathMode)
+                {
+                    suddenDeathMode = true;
+
+                    StartCoroutine(hudController.ShowMessageSuddenDeath());
+                    StartCoroutine(levelManager.SpawnCrush());
+                }
+            }
+
+            if (Mathf.FloorToInt(time) == 60 && !fastMode)
+            {
+                fastMode = true;
+
+                StartCoroutine(hudController.ShowMessageHurryUp());
+                SoundSystem.instance.StopMusic();
+                SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION_FAST);
+            }
 
             // Update the timer hud element
             hudController.UpdateTimer(time);

@@ -32,7 +32,7 @@ namespace kaboomcombat
         // Function to start the bomb timer manually if autoStart is false
         private void StartTimer()
         {
-            Invoke("Explode", bombTimer);
+            Invoke("TriggerExplosion", bombTimer);
         }
 
 
@@ -52,12 +52,17 @@ namespace kaboomcombat
         }
 
 
-        // Function that handles the bomb's explosion
-        public void Explode()
+        public void TriggerExplosion()
         {
             // Play explosion sound
             SoundSystem.instance.PlaySound(Sounds.EXPLOSION_1);
+            Explode();
+        }
 
+
+        // Function that handles the bomb's explosion
+        public void Explode()
+        {
             // Store the current position for easier access
             Vector3 currentPos = transform.position;
 

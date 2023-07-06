@@ -1,3 +1,4 @@
+// Enum that holds the different states of the game
 
 namespace kaboomcombat
 {

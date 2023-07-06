@@ -1,4 +1,10 @@
+// PowerupGod class
+// ====================================================================================================================
+// Handles the invulnerability powerup
+
+
 using UnityEngine;
+
 
 namespace kaboomcombat
 {

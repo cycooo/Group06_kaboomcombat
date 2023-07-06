@@ -1,3 +1,4 @@
+// Enum that holds all sound effects in the game
 
 namespace kaboomcombat
 {

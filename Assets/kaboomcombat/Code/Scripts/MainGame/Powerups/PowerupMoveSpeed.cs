@@ -1,4 +1,10 @@
+// PowerupMoveSpeed class
+// ====================================================================================================================
+// Handles the movespeed powerup
+
+
 using UnityEngine;
+
 
 namespace kaboomcombat
 {

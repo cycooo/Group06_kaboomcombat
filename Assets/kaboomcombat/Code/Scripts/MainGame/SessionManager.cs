@@ -116,8 +116,10 @@ namespace kaboomcombat
         }
 
 
+        // Coroutine that handles the game over sequence
         private IEnumerator HandleGameOver()
         {
+            // Close the hud and stop the music
             hudController.CloseHud();
             SoundSystem.instance.StopMusic();
 

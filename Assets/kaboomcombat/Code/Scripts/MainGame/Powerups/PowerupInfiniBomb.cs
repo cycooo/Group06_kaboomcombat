@@ -1,4 +1,10 @@
+// PowerupInfiniBomb class
+// ====================================================================================================================
+// Handles the infinite bombs powerup
+
+
 using UnityEngine;
+
 
 namespace kaboomcombat
 {

@@ -26,9 +26,7 @@ namespace kaboomcombat
         public Image dropShadow;
         public Image imagePlayermodel;
 
-        
         public TextMeshProUGUI textKills;
-
 
         private string kills;
 
@@ -54,6 +52,8 @@ namespace kaboomcombat
             }
         }
 
+
+        // Function to update the panel
         public void UpdatePanel()
         {
             CheckReferences();

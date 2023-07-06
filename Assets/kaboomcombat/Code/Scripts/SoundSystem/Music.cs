@@ -1,3 +1,4 @@
+// Enum that holds all music tracks
 
 namespace kaboomcombat
 {

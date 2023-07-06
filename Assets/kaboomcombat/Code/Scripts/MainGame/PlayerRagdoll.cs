@@ -1,4 +1,10 @@
+// PlayerRagdoll class
+// ====================================================================================================================
+// Handles the flying playermodel when a player gets blown up
+
+
 using UnityEngine;
+
 
 namespace kaboomcombat
 {
@@ -9,6 +15,7 @@ namespace kaboomcombat
 
         void Start()
         {
+            // Make the playermodel fly upwards in a random direction
             rb = GetComponent<Rigidbody>();
 
             float xForce = Random.Range(-400f, 400f);
@@ -20,6 +27,8 @@ namespace kaboomcombat
 
             rb.AddForce(new Vector3(xForce, 800f, zForce));
             rb.AddTorque(new Vector3(xTorque, yTorque, zTorque));
+
+            // Destroy the playermodel after 3 seconds
             Invoke("Kill", 3f);
         }
 

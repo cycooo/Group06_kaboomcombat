@@ -1,3 +1,7 @@
+// GameOverController Class
+// ====================================================================================================================
+// Handles the game over scene
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -6,13 +10,16 @@ using UnityEngine.SceneManagement;
 namespace kaboomcombat{
     public class GameOverController : MonoBehaviour
     {
+        // Arrays of place texts and playerPanels
         public TMP_Text[] placeTexts;
         public GameObject[] panelPlayerHudArray = new GameObject[4];
 
-
+        // Reference to the inputasset 
         private MenuActionAsset inputAsset;
 
+
         public void Awake(){
+            // Set all player panels to inactive
             for(int i = 0; i < panelPlayerHudArray.Length;i++){
                 panelPlayerHudArray[i].SetActive(false);
             }

@@ -1,3 +1,5 @@
+// Class that plays an audio clip on spawn
+
 using UnityEngine;
 
 namespace kaboomcombat

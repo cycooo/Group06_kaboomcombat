@@ -4040,11 +4040,11 @@ MonoBehaviour:
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
-  m_PointAction: {fileID: 5591773606452979564, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
+  m_PointAction: {fileID: 0}
   m_MoveAction: {fileID: -9179238206977670078, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
   m_SubmitAction: {fileID: 1023811973141544812, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
   m_CancelAction: {fileID: -6039778354852543956, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
-  m_LeftClickAction: {fileID: 2954668539246743211, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
+  m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 422036815697128938, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
   m_RightClickAction: {fileID: 4403804772387996032, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
   m_ScrollWheelAction: {fileID: -8529500124219485317, guid: c89d6f68e9ef6b341866ebbfb1536a1c, type: 3}
@@ -4168,8 +4168,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7334,7 +7334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1889887253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7350,10 +7350,10 @@ RectTransform:
   m_Father: {fileID: 165909455}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 720, y: -105}
+  m_SizeDelta: {x: 240, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1889887254
 MonoBehaviour:

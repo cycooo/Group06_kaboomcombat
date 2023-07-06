@@ -2,10 +2,12 @@
 // ====================================================================================================================
 // Handles the game over scene
 
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
 
 namespace kaboomcombat{
     public class GameOverController : MonoBehaviour
@@ -26,11 +28,7 @@ namespace kaboomcombat{
 
             // Create a new input asset
             inputAsset = new MenuActionAsset();
-        }
 
-
-        void Start()
-        {
             InitializeHud();
             TMPhandler();
         }

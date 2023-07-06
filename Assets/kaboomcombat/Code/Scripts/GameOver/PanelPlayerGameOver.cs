@@ -15,7 +15,6 @@ namespace kaboomcombat
         // The id of the player assigned to the information panel
         public int playerId;
         private Player player;
-        private SessionManager sessionManager;
 
         public RectTransform panelPlayerStats;
         public RectTransform playerPortrait;
@@ -31,7 +30,7 @@ namespace kaboomcombat
         private string kills;
 
 
-        private void Start()
+        private void Awake()
         {
             // Assign the player portrait class's playerId, since it is a child of this object
             GetComponentInChildren<PlayerPortrait>().playerId = playerId;
@@ -42,10 +41,6 @@ namespace kaboomcombat
         // Function that checks if references are null and assigns them if they are
         private void CheckReferences()
         {
-            if(sessionManager == null)
-            {
-                sessionManager = FindObjectOfType<SessionManager>();
-            }
             if(player == null)
             {
                 kills = DataManager.playerKills[playerId].ToString();

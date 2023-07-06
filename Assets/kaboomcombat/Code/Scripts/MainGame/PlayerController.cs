@@ -80,7 +80,8 @@ namespace kaboomcombat
             sessionManager.CheckGameOver();
             player.panelPlayerHud.ShowDeath();
 
-            
+            DataManager.leaderboard.Add(player.id);
+            DataManager.playerKills[player.id] = player.kills;
         }
 
 

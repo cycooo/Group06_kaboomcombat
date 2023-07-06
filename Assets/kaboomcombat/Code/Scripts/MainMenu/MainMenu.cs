@@ -56,7 +56,10 @@ namespace kaboomcombat
 
             // Create a new input asset
             inputAsset = new MenuActionAsset();
+        }
 
+        private void Start()
+        {
             // Call UpdateMenu to place UI elements accordingly
             UpdateMenu();
         }

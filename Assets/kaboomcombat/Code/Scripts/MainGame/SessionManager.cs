@@ -3,10 +3,11 @@
 // Handles the parameters and logic of the main game (Ex. time, players alive, spawning players, changing game state etc.)
 
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 
 namespace kaboomcombat
 {
@@ -99,25 +100,54 @@ namespace kaboomcombat
 
 
         // TODO: Function that handles game over scenarios
-        private void GameOver(bool timeOut)
+        private void GameOver()
         {
+            if(DataManager.gameState != GameState.GAMEOVER)
+            {
+                StartCoroutine(HandleGameOver());
+            }
+
             DataManager.gameState = GameState.GAMEOVER;
             
             foreach(GameObject player in playerList)
             {
                 player.GetComponent<Player>().god = true;
             }
+        }
 
-            if (!timeOut)
+
+        private IEnumerator HandleGameOver()
+        {
+            hudController.CloseHud();
+            SoundSystem.instance.StopMusic();
+
+            yield return new WaitForSeconds(0.5f);
+
+            SoundSystem.instance.PlaySound(Sounds.CROWD_APPLAUSE);
+
+            // Don't pan the camera if all players are dead
+            if(playerList.Count > 0)
             {
-                hudController.CloseHud();
                 cameraController.MoveTo(playerList[0].transform.position, 3f);
                 cameraController.ZoomTo(15f, 1f);
+
+                Debug.Log("Round Win");
             }
-            else
+            else if(playerList.Count == 0)
             {
-                // TODO
+                Debug.Log("Round Draw");
             }
+
+            yield return new WaitForSeconds(5f);
+
+            // Destroy all players so their data is saved (ew)
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                Destroy(playerList[i]);
+            }
+
+            // Finally, load the game over scene
+            SceneManager.LoadScene("GameOver");
         }
 
 
@@ -126,7 +156,7 @@ namespace kaboomcombat
         {
             if(playerList.Count <= 1)
             {
-                GameOver(false);
+                GameOver(); ;
             }
         }
 

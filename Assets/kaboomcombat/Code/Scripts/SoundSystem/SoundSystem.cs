@@ -44,8 +44,18 @@ namespace kaboomcombat
             soundSource.PlayOneShot(soundList[(int)sound]);
         }
 
+        public void StopAllSounds()
+        {
+            soundSource.Stop();
+        }
+
         public void PlayMusic(AudioClip clip)
         {
+            if(musicSource.clip == clip && musicSource.isPlaying)
+            {
+                return;
+            }
+
             musicSource.clip = clip;
             musicSource.Play();
         }

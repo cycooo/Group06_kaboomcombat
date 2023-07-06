@@ -46,6 +46,8 @@ namespace kaboomcombat
 
         void Awake()
         {
+            DataManager.Reset();
+
             // Get references
             mainMenu = GetComponent<MainMenu>();
             tutorialMenu = GetComponent<TutorialMenu>();

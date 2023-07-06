@@ -9,7 +9,8 @@ namespace kaboomcombat
         SUDDEN_DEATH,
         BOMB_PLACE,
         EXPLOSION_1,
-        THUD
+        THUD,
+        CROWD_APPLAUSE
     }
 
 }

@@ -13,5 +13,19 @@ namespace kaboomcombat
     {
         public static List<Player> playerListStatic = new List<Player>();
         public static GameState gameState = GameState.MENU;
+
+        public static List<int> leaderboard = new List<int>();
+        public static int[] playerKills = new int[4];
+
+        
+        public static void Reset()
+        {
+            playerListStatic.Clear();
+            leaderboard.Clear();
+            for(int i = 0; i < playerKills.Length; i++)
+            {
+                playerKills[i] = 0;
+            }
+        }
     }
 }

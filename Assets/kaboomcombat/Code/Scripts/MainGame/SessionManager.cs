@@ -3,18 +3,23 @@
 // Handles the parameters and logic of the main game (Ex. time, players alive, spawning players, changing game state etc.)
 
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 
 namespace kaboomcombat
 {
     public class SessionManager : MonoBehaviour
     {
         // Game parameters
-        public float time = 180;
+        public float time = 120;
         public int bombPowerMax = 9;
+
+        // Game modes
+        public bool fastMode = false;
+        public bool suddenDeathMode = false;
 
         // Powerup parameters
         public float powerupTimer = 0f;
@@ -33,6 +38,7 @@ namespace kaboomcombat
         // References
         private PlayerInputManager playerInputManager;
         public HudController hudController;
+        private LevelManager levelManager;
         private CameraController cameraController;
 
 
@@ -40,6 +46,7 @@ namespace kaboomcombat
         {
             // Assign references
             hudController = GetComponent<HudController>();
+            levelManager = GetComponent<LevelManager>();
             playerInputManager = GetComponent<PlayerInputManager>();
             cameraController = FindObjectOfType<CameraController>();
 
@@ -49,6 +56,8 @@ namespace kaboomcombat
 
         private void Start()
         {
+            Physics.gravity = new Vector3(0f, -9.8f, 0f);
+
             // Start the session(Not Game!) and spawn the players
             StartSession();
             SpawnPlayers();
@@ -59,17 +68,7 @@ namespace kaboomcombat
         {
             if (DataManager.gameState == GameState.PLAYING)
             {
-                // Update the time every frame, unless the time is 0
-                if (Mathf.FloorToInt(time) > 0)
-                {
-                    UpdateTime();
-                }
-                else
-                {
-                    // Call GameOver with a timeOut value of true to indicate that the time has run out
-                    GameOver(true);
-                }
-                
+                UpdateTime();
                 UpdatePowerUpTimer();
             }
         }
@@ -101,34 +100,65 @@ namespace kaboomcombat
 
 
         // TODO: Function that handles game over scenarios
-        private void GameOver(bool timeOut)
+        private void GameOver()
         {
+            if(DataManager.gameState != GameState.GAMEOVER)
+            {
+                StartCoroutine(HandleGameOver());
+            }
+
             DataManager.gameState = GameState.GAMEOVER;
             
             foreach(GameObject player in playerList)
             {
                 player.GetComponent<Player>().god = true;
             }
+        }
 
-            if (!timeOut)
+
+        // Coroutine that handles the game over sequence
+        private IEnumerator HandleGameOver()
+        {
+            // Close the hud and stop the music
+            hudController.CloseHud();
+            SoundSystem.instance.StopMusic();
+
+            yield return new WaitForSeconds(0.5f);
+
+            SoundSystem.instance.PlaySound(Sounds.CROWD_APPLAUSE);
+
+            // Don't pan the camera if all players are dead
+            if(playerList.Count > 0)
             {
-                hudController.CloseHud();
-                cameraController.MoveTo(playerList[0].transform.position, 1f);
-                cameraController.ZoomTo(10f, 1f);
+                cameraController.MoveTo(playerList[0].transform.position, 3f);
+                cameraController.ZoomTo(15f, 1f);
+
+                Debug.Log("Round Win");
             }
-            else
+            else if(playerList.Count == 0)
             {
-                // TODO
+                Debug.Log("Round Draw");
             }
+
+            yield return new WaitForSeconds(5f);
+
+            // Destroy all players so their data is saved (ew)
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                Destroy(playerList[i]);
+            }
+
+            // Finally, load the game over scene
+            SceneManager.LoadScene("GameOver");
         }
 
 
         // Function that checks if the game is over (if only 1 player remains)
         public void CheckGameOver()
         {
-            if(playerList.Count == 1)
+            if(playerList.Count <= 1)
             {
-                GameOver(false);
+                GameOver(); ;
             }
         }
 
@@ -218,8 +248,36 @@ namespace kaboomcombat
         // Update the time
         private void UpdateTime()
         {
-            
-            time -= Time.deltaTime;
+            // Update the time every frame, unless the time is 0
+            if (Mathf.FloorToInt(time) > 0)
+            {
+                    time -= Time.deltaTime;
+            }
+            else
+            {
+                // Set time to 0 in case it goes negative before we stop counting
+                time = 0f;
+                
+                if(!suddenDeathMode)
+                {
+                    suddenDeathMode = true;
+
+                    SoundSystem.instance.StopMusic();
+                    SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION_2);
+
+                    StartCoroutine(hudController.ShowMessageSuddenDeath());
+                    StartCoroutine(levelManager.SpawnCrush());
+                }
+            }
+
+            if (Mathf.FloorToInt(time) == 60 && !fastMode)
+            {
+                fastMode = true;
+
+                StartCoroutine(hudController.ShowMessageHurryUp());
+                SoundSystem.instance.StopMusic();
+                SoundSystem.instance.PlayMusic(Music.JAZZ_ACTION_FAST);
+            }
 
             // Update the timer hud element
             hudController.UpdateTimer(time);

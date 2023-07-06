@@ -84,11 +84,15 @@ MonoBehaviour:
   id: 0
   kills: 0
   bombPower: 2
+  infiniBomb: 0
   god: 0
+  fast: 0
   controlScheme: 
   playerModel: {fileID: 0}
+  effectInfiniBomb: {fileID: 4402560472186964291, guid: 52be1f5d306f1e95299e8506421b5167, type: 3}
   effectMoveSpeed: {fileID: 1039363412827746037, guid: f26f9cd86eed75a49afdec2cf84f09a1, type: 3}
   effectGod: {fileID: 6422381993566499792, guid: 62fe1a20be7b8784e8c763895f560c1e, type: 3}
+  playerRagdoll: {fileID: 2064262703714328637, guid: 0e9029fd578f2aa43bc23032aae58608, type: 3}
   playerModelContainer: {fileID: 2064262703280231863}
   playerController: {fileID: 0}
   sessionManager: {fileID: 0}

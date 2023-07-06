@@ -15,6 +15,7 @@ namespace kaboomcombat
         public int id;
         public int kills = 0;
         public int bombPower = 2;
+        public bool infiniBomb = false;
         public bool god = false;
         public bool fast = false;
 
@@ -26,8 +27,12 @@ namespace kaboomcombat
         public GameObject playerModel;
 
         // Effect prefabs
+        public GameObject effectInfiniBomb;
         public GameObject effectMoveSpeed;
         public GameObject effectGod;
+
+        // Ragdoll prefab
+        public GameObject playerRagdoll;
 
         // Reference to the playerModelContainer which is used as a parent when instantiating the playermodel.
         public GameObject playerModelContainer;
@@ -54,8 +59,17 @@ namespace kaboomcombat
         {
             if(!god)
             {
+                GameObject playerRagdollInstance = Instantiate(playerRagdoll, transform.position, playerRagdoll.transform.rotation);
+                playerRagdollInstance.GetComponent<PlayerRagdoll>().AddPlayermodel(playerModel);
                 Destroy(gameObject);
+
             }
+        }
+
+
+        public void SetPowerupInfiniBomb(float duration)
+        {
+            StartCoroutine(SetInfiniBombForSeconds(10f));
         }
 
 
@@ -68,6 +82,21 @@ namespace kaboomcombat
         public void SetPowerupMoveSpeed(float moveTime, float duration)
         {
             StartCoroutine(SetMoveTimeForSeconds(0.12f, 10f));
+        }
+
+
+        public IEnumerator SetInfiniBombForSeconds(float duration)
+        {
+            if(!infiniBomb)
+            {
+                infiniBomb = true;
+                GameObject effectInfiniBombInstance = Instantiate(effectInfiniBomb, gameObject.transform);
+
+                yield return new WaitForSeconds(duration);
+
+                infiniBomb = false;
+                Destroy(effectInfiniBombInstance);
+            }
         }
 
 

@@ -1,3 +1,4 @@
+// Enum that holds all sound effects in the game
 
 namespace kaboomcombat
 {
@@ -6,8 +7,11 @@ namespace kaboomcombat
         UI_SELECT,
         UI_CANCEL,
         UI_MOVE,
+        SUDDEN_DEATH,
         BOMB_PLACE,
-        EXPLOSION_1
+        EXPLOSION_1,
+        THUD,
+        CROWD_APPLAUSE
     }
 
 }

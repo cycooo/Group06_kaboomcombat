@@ -20,10 +20,19 @@ namespace kaboomcombat
         private CameraController cameraController;
         public TextMeshProUGUI textTimer;
 
+        // Hud
         public GameObject panelHud;
+
+        // Countdown
         public GameObject panelCountdown;
         public RectTransform panelNumber;
         public RectTransform panelGo;
+
+        // Messages
+        public GameObject panelMessage;
+        public RectTransform panelHurryUp;
+        public RectTransform panelSuddenDeath;
+
         public Image imageNumber;
 
         public Sprite[] numberSprites = new Sprite[3];
@@ -61,6 +70,11 @@ namespace kaboomcombat
         // Function used to update the timer each frame
         public void UpdateTimer(float time)
         {
+            if(sessionManager.time == 0)
+            {
+                textTimer.color = new Color(255, 0, 0);
+            }
+
             // Calculate minutes and seconds from the total time float
             int minutes = Mathf.FloorToInt(time / 60);
             int seconds = Mathf.FloorToInt(time % 60);
@@ -144,13 +158,101 @@ namespace kaboomcombat
         }
 
 
+        // Function to animate the hurry up message
+        public IEnumerator ShowMessageHurryUp()
+        {
+            // This is very messy, but there's no time so too bad
+            panelMessage.SetActive(true);
+            panelHurryUp.gameObject.SetActive(true);
+
+            panelHurryUp.position = new Vector3(900f, 0f, 0f);
+
+            LTDescr introTween;
+            LTDescr middleTween;
+            LTDescr outroTween;
+
+            introTween = LeanTween.move(panelHurryUp, new Vector3(30f, 0f, 0f), 0.5f);
+            introTween.setEaseInOutQuart();
+            introTween.setOnComplete( delegate() 
+            {
+                LTDescr scaleUpTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.15f);
+                scaleUpTween.setEaseInOutQuart();
+                scaleUpTween.setOnComplete( delegate()
+                {
+                    LTDescr scaleDownTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1f, 1f, 1f), 0.15f);
+                    scaleUpTween.setEaseInOutQuart();
+                    scaleDownTween.setOnComplete( delegate()
+                    {
+                        scaleUpTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.15f);
+                        scaleUpTween.setEaseInOutQuart();
+                        scaleUpTween.setOnComplete( delegate()
+                        {
+                            scaleDownTween = LeanTween.scale(panelHurryUp.gameObject, new Vector3(1f, 1f, 1f), 0.15f);
+                            scaleUpTween.setEaseInOutQuart();
+                        });
+                    });
+                });
+                
+
+                middleTween = LeanTween.moveX(panelHurryUp, -30f, 1f);
+                middleTween.setOnComplete( delegate() 
+                {
+                    outroTween = LeanTween.moveX(panelHurryUp, -900f, 0.5f);
+                    outroTween.setEaseInOutQuart();
+                    outroTween.setOnComplete( delegate()
+                    {
+                        panelHurryUp.gameObject.SetActive(false);
+                        panelMessage.SetActive(false);
+                    });
+                });
+            });
+
+            yield return null;
+        }
+
+
+        // Function to animate the sudden death message
+        public IEnumerator ShowMessageSuddenDeath()
+        {
+            panelMessage.SetActive(true);
+            panelSuddenDeath.gameObject.SetActive(true);
+
+            panelSuddenDeath.position = new Vector3(0f, -420f, 0f);
+            LeanTween.scale(panelSuddenDeath, new Vector3(0.4f, 0.4f, 0.4f), 0f);
+
+            LTDescr introTween;
+            LTDescr outroTween;
+
+            float duration = 0.7f;
+
+            LeanTween.scale(panelSuddenDeath, new Vector3(1f, 1f, 1f), duration).setEaseOutQuart();
+            introTween = LeanTween.move(panelSuddenDeath, new Vector3(0f, 0f, 0f), duration);
+            introTween.setEaseOutQuart();
+            introTween.setOnComplete( delegate()
+            {
+                SoundSystem.instance.PlaySound(Sounds.SUDDEN_DEATH);
+            });
+
+            yield return new WaitForSeconds(2.0f);
+
+            LeanTween.scale(panelSuddenDeath, new Vector3(0.4f, 0.4f, 0.4f), duration).setEaseInOutQuart();
+            outroTween = LeanTween.moveY(panelSuddenDeath, 420f, duration);
+            outroTween.setEaseInOutQuart();
+            outroTween.setOnComplete( delegate()
+            {
+                panelSuddenDeath.gameObject.SetActive(false);
+                panelMessage.SetActive(false);
+            });
+        }
+
+
         // Function that animates the start countdown
         public IEnumerator StartHudCountdown()
         {
             // Wait for 1 second
             yield return new WaitForSeconds(1);
 
-            cameraController.ZoomTo(28, 3f);
+            cameraController.ZoomTo(30, 3f);
 
             // Set the countdown panel to active
             panelCountdown.SetActive(true);
@@ -236,7 +338,7 @@ namespace kaboomcombat
             panelNumber.gameObject.SetActive(false);
             panelGo.gameObject.SetActive(true);
 
-
+            
             // Go
             // Set initial parameters before animation
             LeanTween.alpha(panelGo, 0f, 0f);

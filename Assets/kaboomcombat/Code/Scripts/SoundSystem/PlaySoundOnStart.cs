@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+// Class that plays an audio clip on spawn
+
 using UnityEngine;
 
 namespace kaboomcombat

@@ -5,7 +5,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,6 +32,9 @@ namespace kaboomcombat
         private bool isMoving = false;
 
 
+        private GameObject bombInstance;
+
+
         private void Start()
         {
             // Get references to sessionManager and objectList
@@ -46,14 +48,6 @@ namespace kaboomcombat
             // Get references to inputAsset and the "Player" action map
             inputAsset = GetComponent<PlayerInput>().actions;
             playerActionMap = inputAsset.FindActionMap("Player");
-        }
-
-        private void OnDestroy()
-        {
-            // Remove the player from the sessionManager playerList when it is destroyed
-            sessionManager.playerList.Remove(gameObject);
-            sessionManager.CheckGameOver();
-            player.panelPlayerHud.ShowDeath();
         }
 
 
@@ -76,6 +70,18 @@ namespace kaboomcombat
             playerActionMap.FindAction("PlaceBomb").started -= PlaceBomb;
             // Disable the Player Action Map
             playerActionMap.Disable();
+        }
+
+
+        private void OnDestroy()
+        {
+            // Remove the player from the sessionManager playerList when it is destroyed
+            sessionManager.playerList.Remove(gameObject);
+            sessionManager.CheckGameOver();
+            player.panelPlayerHud.ShowDeath();
+
+            DataManager.leaderboard.Add(player.id);
+            DataManager.playerKills[player.id] = player.kills;
         }
 
 
@@ -169,10 +175,27 @@ namespace kaboomcombat
         {
             if(DataManager.gameState == GameState.PLAYING)
             {
+                bool doReturn = false;
+
+                if(!sessionManager.suddenDeathMode)
+                {
+                    if(bombInstance != null)
+                    {
+                        doReturn = true;
+                    }
+                }
+                
+                if(player.infiniBomb)
+                {
+                    doReturn = false;
+                }
+
+                if(doReturn) { return; }
+
                 // Only place a bomb if a bomb is not already at the player's position
                 if (LevelManager.SearchLevelTile(transform.position) == null)
                 {
-                    GameObject bombInstance = LevelManager.SpawnObject(objectList[2], transform.position);
+                    bombInstance = LevelManager.SpawnObject(objectList[2], transform.position);
                     bombInstance.GetComponent<BombController>().ownerPlayer = player;
                     bombInstance.GetComponent<BombController>().bombPower = player.bombPower;
                 }

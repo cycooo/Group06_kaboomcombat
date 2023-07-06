@@ -1,3 +1,4 @@
+// Enum for menu states
 
 namespace kaboomcombat
 {

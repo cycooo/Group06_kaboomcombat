@@ -9,10 +9,13 @@ EditorBuildSettings:
     path: Assets/kaboomcombat/Scenes/MainMenu.unity
     guid: 16dbd518777a0e5459355584d01c08fd
   - enabled: 1
-    path: Assets/kaboomcombat/Scenes/MainGame.unity
-    guid: 4ca93a1704d87de49b69277b519c3146
-  - enabled: 0
     path: Assets/kaboomcombat/Scenes/Tutorial.unity
     guid: d814ef14745a3b240a46ed0c4f177602
+  - enabled: 1
+    path: Assets/kaboomcombat/Scenes/MainGame.unity
+    guid: 4ca93a1704d87de49b69277b519c3146
+  - enabled: 1
+    path: Assets/kaboomcombat/Scenes/GameOver.unity
+    guid: dfbe2964891fddb4b91e3beef2a7b83b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 18f6c8711a2ae1c4e8bee5eb5124ae73, type: 2}

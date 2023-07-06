@@ -1,3 +1,4 @@
+// Enum that holds all music tracks
 
 namespace kaboomcombat
 {
@@ -5,6 +6,7 @@ namespace kaboomcombat
     {
         JAZZ_CALM,
         JAZZ_ACTION,
-        JAZZ_ACTION_FAST
+        JAZZ_ACTION_FAST,
+        JAZZ_ACTION_2
     }
 }
